@@ -110,7 +110,7 @@ body {
 .icon-row-h { display:flex; gap:8px; flex-wrap:wrap; }
 .icon-btn {
   width:38px; height:38px; border-radius:50%;
-  border:1px solid rgba(17,17,17,0.1);
+  border:1px solid rgba(17,171,17,0.1);
   display:flex; align-items:center; justify-content:center;
   color:var(--black); text-decoration:none;
   background:rgba(255,255,255,0.65); transition:all 0.18s; position:relative;
@@ -232,7 +232,7 @@ hr { border:none; border-top:1px solid rgba(100,140,200,0.13); }
 .timeline::before { content:''; position:absolute; left:50%; top:0; bottom:0; width:1px; background:rgba(100,140,200,0.2); transform:translateX(-0.5px); }
 .tl-item { display:flex; align-items:flex-start; padding:24px 0; position:relative; }
 .tl-item.right .tl-side { margin-left:calc(50% + 24px); display:flex; gap:12px; align-items:flex-start; }
-.tl-item.left .tl-side { margin-right:calc(50% + 24px); display:flex; gap:12px; align-items:flex-start; flex-direction:row-reverse; text-align:right; }
+.tl-item.left .tl-side { margin-right:calc(50% + 24px); display:flex; gap:12px; align-items:flex-start; flex-direction:row-reverse; text-align:right; width:calc(50% - 24px); }
 .tl-dot-wrap { position:absolute; left:50%; top:28px; transform:translateX(-50%); z-index:2; }
 .tl-dot { width:10px; height:10px; border-radius:50%; border:2px solid var(--blue); background:var(--paper); }
 .tl-date { position:absolute; top:28px; font-family:'Geist',sans-serif; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--mid); line-height:1.5; }
@@ -245,7 +245,10 @@ hr { border:none; border-top:1px solid rgba(100,140,200,0.13); }
 .tl-place { font-family:'Geist',sans-serif; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--mid); margin-bottom:10px; }
 .tl-desc { font-size:16px; color:#666; line-height:1.85; }
 .tl-sub { font-size:14px; color:var(--mid); margin-top:2px; }
-.tl-courses { font-size:14px; color:var(--mid); line-height:1.8; margin-top:8px; }
+.tl-courses { font-size:13px; color:var(--mid); line-height:1.8; margin-top:10px; word-break:keep-all; overflow-wrap:break-word; }
+.tl-courses-label { font-family:'Geist',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#4a6f8a; display:inline-block; margin-bottom:2px; }
+.tl-item.left .tl-content { min-width:0; max-width:100%; }
+.tl-course-item { white-space:nowrap; }
 
 .proj-grid { display:flex; flex-direction:column; gap:14px; }
 .proj-card { border:1.5px solid rgba(155,200,230,0.35); border-radius:20px; padding:22px 26px; background:rgba(210,230,245,0.15); cursor:pointer; transition:transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
@@ -265,9 +268,8 @@ hr { border:none; border-top:1px solid rgba(100,140,200,0.13); }
 .proj-github:hover { background:rgba(100,150,200,0.08); }
 .proj-github svg { width:14px; height:14px; }
 
-.pub-grid { display:flex; flex-direction:column; gap:14px; }
-.pub-card { border:1.5px solid rgba(155,200,230,0.35); border-radius:20px; padding:22px 26px; background:rgba(210,230,245,0.15); transition:transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
-.pub-card:hover { transform:scale(1.01); border-color:rgba(100,150,200,0.55); box-shadow:0 2px 12px rgba(100,140,200,0.08); }
+.pub-grid { display:flex; flex-direction:column; gap:28px; }
+.pub-card { padding:0; }
 .pub-card .pub-badge { font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--mid); margin-bottom:8px; }
 .pub-card .pub-title { font-family:'Geist',sans-serif; font-size:15px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:#4a6f8a; margin:0; margin-bottom:12px; }
 .pub-venue { font-size:15px; color:var(--mid); line-height:1.8; margin-bottom:12px; }
@@ -584,7 +586,7 @@ body.loaded .hero-right { animation-play-state:running; }
   <div class="section">
     <div class="sec-label"><span>About</span></div>
     <div class="about-text reveal">
-      <p>I enjoy building software solutions that use data and applied AI to solve real problems. Professionally, I've built systems in the biotech domain and for mid-scale businesses. I'm currently a Computer Science graduate student at UMass Amherst, where I focus on machine learning, scalable systems, and optimization.</p>
+      <p>I enjoy building software solutions that use data and applied AI to solve real problems. Professionally, I've built systems in the biotech domain and for enterprise-scale businesses. I'm currently a Computer Science graduate student at UMass Amherst, where I focus on machine learning, scalable systems, and optimization.</p>
 
       <p>My research at the BioNLP Lab at UMass Amherst focuses on improving the reliability of AI systems used in clinical calculations. More broadly, I'm interested in the intersection of software engineering and data — where system design, optimization for scalability, and reliability matter.</p>
 
@@ -607,21 +609,21 @@ body.loaded .hero-right { animation-play-state:running; }
           <div class="tl-content" data-date="Sept 2025 — Present">
             <div class="tl-role">Graduate Researcher</div>
             <div class="tl-place">UMass Amherst &nbsp;·&nbsp; Amherst, MA</div>
-            <div class="tl-desc">Led development of an LLM-based clinical calculator selection system, improving benchmark accuracy to 90%. Expanded MedCalc-Bench to 700+ calculators via BeautifulSoup scraping. Benchmarked GPT-4o-mini, Mistral, and Qwen — GPT-4o-mini outperformed peers by 15%.</div>
+            <div class="tl-desc"><ul style="margin:0;padding-left:18px;list-style:disc;"><li>Building LLM-based clinical calculator selection system using prompt engineering and retrieval methods</li><li>Expanded MedCalc-Bench to 700+ calculators by merging web sources and standardizing clinical metadata</li><li>Designed exclusion-matrix benchmarking methodology across 15+ clinical categories</li><li>Benchmarked GPT-4o-mini, Mistral, and Qwen models, achieving 90% accuracy with 15% improvement</li></ul></div>
           </div>
         </div>
       </div>
 
       <div class="tl-item left reveal">
-        <div class="tl-date">Sept 2025 —<br>May 2027</div>
+        <div class="tl-date">Sept 2025 —<br>May 2027 (Expected)</div>
         <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
         <div class="tl-side">
           <div class="tl-logo" style="border:none; background:transparent;"><img src="assets/umass_logo.png" alt="UMass Amherst"></div>
-          <div class="tl-content" data-date="Sept 2025 — May 2027">
-            <div class="tl-role">UMass Amherst</div>
+          <div class="tl-content" data-date="Sept 2025 — May 2027 (Expected)">
+            <div class="tl-role">University of Massachusetts Amherst</div>
             <div class="tl-sub">Manning College of Information & Computer Sciences</div>
             <div class="tl-place">MS in Computer Science &nbsp;·&nbsp; Amherst, MA</div>
-            <div class="tl-courses">ML · Advanced NLP · Optimisation in CS</div>
+            <div class="tl-courses"><span class="tl-courses-label">Relevant Coursework</span><br><span class="tl-course-item">Machine Learning</span> · <span class="tl-course-item">Advanced NLP</span> · <span class="tl-course-item">Graduate Researcher @BioNLP Lab</span> · <span class="tl-course-item">Theory and Practice of Software Engineering</span> · <span class="tl-course-item">Optimization in Computer Science</span> · <span class="tl-course-item">Data Science Fundamentals</span></div>
           </div>
         </div>
       </div>
@@ -635,7 +637,7 @@ body.loaded .hero-right { animation-play-state:running; }
           <div class="tl-content" data-date="Aug 2024 — May 2025">
             <div class="tl-role">Software Engineer Intern — AI/ML</div>
             <div class="tl-place">Axia &nbsp;·&nbsp; Mumbai, IN</div>
-            <div class="tl-desc">Built a multi-agent AI system for automated content generation, reducing production time by 60%. Improved LLM pipeline quality by 45% using LangGraph and fine-tuning. Integrated into production via FastAPI — improved page load by 20%.</div>
+            <div class="tl-desc"><ul style="margin:0;padding-left:18px;list-style:disc;"><li>Built multi-agent AI system using LangGraph for automated content generation and evaluation workflows</li><li>Improved LLM pipeline quality by 45% through prompt optimization and model fine-tuning</li><li>Integrated generative AI pipeline into production website via FastAPI, reducing response latency by 20%</li><li>Collaborated with cross-functional teams to deploy data-driven features across release cycles</li></ul></div>
           </div>
         </div>
       </div>
@@ -649,7 +651,7 @@ body.loaded .hero-right { animation-play-state:running; }
           <div class="tl-content" data-date="Jun 2023 — Aug 2023">
             <div class="tl-role">Data Science Intern</div>
             <div class="tl-place">TechCryptors &nbsp;·&nbsp; Amherst, MA</div>
-            <div class="tl-desc">Analyzed 50K+ real estate listings to identify amenity and regional pricing drivers. Applied linear regression and significance testing — explained 30% of price variance. Tableau dashboards reduced turnaround time by 45%.</div>
+            <div class="tl-desc"><ul style="margin:0;padding-left:18px;list-style:disc;"><li>Analyzed 50K+ real estate listings using Python and SQL to identify amenity-level and regional pricing drivers</li><li>Conducted multivariate regression analysis with hypothesis testing to isolate significant pricing factors and measure effect sizes</li><li>Built predictive models explaining 30% of observed price variance across regional markets</li><li>Delivered automated Tableau dashboards and data pipelines, reducing analysis turnaround time by 45%</li></ul></div>
           </div>
         </div>
       </div>
@@ -663,21 +665,23 @@ body.loaded .hero-right { animation-play-state:running; }
           <div class="tl-content" data-date="Dec 2022 — Feb 2023">
             <div class="tl-role">App Development Intern</div>
             <div class="tl-place">Klaere &nbsp;·&nbsp; Mumbai, IN</div>
-            <div class="tl-desc">Developed mobile application features during a 3-month internship, contributing to the product's core functionality and user experience improvements.</div>
+            <div class="tl-desc"><ul style="margin:0;padding-left:18px;list-style:disc;"><li>Developed native Android features using Java and Android Studio for B2B trekking platform adopted by 50+ trek organizers</li><li>Integrated Google Maps and Weather APIs for real-time route tracking and weather monitoring with improved data accuracy</li><li>Built 4+ core features including home screen, trek booking system, user profiles, and emergency contact registration</li><li>Optimized app performance reducing crashes and improving load times through efficient API integration and error handling</li></ul></div>
           </div>
         </div>
       </div>
 
       <!-- 2021 — 2025: University of Mumbai (left) -->
       <div class="tl-item left reveal">
-        <div class="tl-date">Nov 2021 —<br>May 2025</div>
+        <div class="tl-date">Dec 2021 —<br>May 2025</div>
         <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
         <div class="tl-side">
           <div class="tl-logo" style="border:none; background:transparent; width:80px; height:80px; min-width:80px;"><img src="assets/mumbai_university.png" alt="University of Mumbai"></div>
-          <div class="tl-content" data-date="Nov 2021 — May 2025">
+          <div class="tl-content" data-date="Dec 2021 — May 2025">
             <div class="tl-role">University of Mumbai</div>
-            <div class="tl-place">BE in Computer Science — AI & Data Science &nbsp;·&nbsp; GPA 3.7/4.0</div>
-            <div class="tl-courses">DSA · Statistics · Big Data Analytics · Distributed Computing · Recommendation Systems</div>
+            <div class="tl-sub">Bachelor of Engineering in Computer Science (with AI & Data Science)</div>
+            <div class="tl-place">Mumbai, IN &nbsp;·&nbsp; 8.88/10 CGPA</div>
+            <div class="tl-courses"><span class="tl-courses-label">Activities</span><br><span class="tl-course-item">National Student Data Corps</span> · <span class="tl-course-item">Microsoft Learn Students Club</span></div>
+            <div class="tl-courses"><span class="tl-courses-label">Relevant Coursework</span><br><span class="tl-course-item">Data Structures and Algorithms</span> · <span class="tl-course-item">Statistics</span> · <span class="tl-course-item">Object-Oriented Programming</span> · <span class="tl-course-item">Database Management Systems</span> · <span class="tl-course-item">Distributed Computing</span> · <span class="tl-course-item">Cloud Computing</span></div>
           </div>
         </div>
       </div>
@@ -693,7 +697,7 @@ body.loaded .hero-right { animation-play-state:running; }
 
       <div class="proj-card reveal">
         <div class="proj-meta">Information Retrieval · Optimization &nbsp;·&nbsp; 2025</div>
-        <div class="proj-head"><div class="proj-name">Diversity-Aware Re-ranking</div><span class="proj-arrow">&#9662;</span></div>
+        <div class="proj-head"><div class="proj-name">Scaling Diversity Aware Re-ranking via Efficient Submodular Maximization</div><span class="proj-arrow">&#9662;</span></div>
         <div class="proj-techs"><span class="ptag">Submodular Optimization</span><span class="ptag">IR</span><span class="ptag">Python</span></div>
         <div class="proj-detail">
           <div class="proj-desc">Submodular optimization approach to diversity-aware search re-ranking. Selects a top-k document subset that maximizes information coverage while minimizing redundancy, leveraging diminishing returns to efficiently balance relevance with diversity across large-scale document collections.</div>
