@@ -85,12 +85,12 @@ body {
 
 .hero-greeting {
   font-family: 'Geist', sans-serif;
-  font-size: 16px; font-weight: 300; letter-spacing: 0.08em;
-  color: var(--mid); margin-bottom: 8px;
+  font-size: 17px; font-weight: 300; letter-spacing: 0.08em;
+  color: var(--mid); margin-bottom: 10px;
 }
 .hero-name {
   font-family: 'Instrument Serif', serif;
-  font-size: clamp(44px, 6vw, 72px);
+  font-size: clamp(48px, 6.2vw, 76px);
   font-weight: 400; line-height: 0.95;
   letter-spacing: -0.025em; margin-bottom: 20px;
 }
@@ -102,25 +102,46 @@ body {
 }
 
 .hero-bio {
-  font-size: 16px; line-height: 1.9; color: #666;
-  max-width: 320px; margin-bottom: 32px;
+  font-size: 19px; line-height: 1.75; color: #555;
+  max-width: 460px; margin-bottom: 32px;
 }
 
-.icon-col { display:flex; flex-direction:column; gap:8px; }
-.icon-row-h { display:flex; gap:8px; flex-wrap:wrap; }
+.hero-pill {
+  display: block;
+  font-family: 'Geist', sans-serif;
+  font-size: 14px; font-weight: 400; letter-spacing: 0.01em;
+  color: #4a6f8a;
+  padding: 0;
+  background: transparent;
+  margin-bottom: 32px;
+  white-space: nowrap;
+}
+
+.icon-col { display:flex; flex-direction:column; gap:12px; }
+.icon-row-h { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
 .icon-btn {
-  width:38px; height:38px; border-radius:50%;
-  border:1px solid rgba(17,171,17,0.1);
+  width:52px; height:52px; border-radius:50%;
+  border:1px dashed rgba(100,140,200,0.45);
   display:flex; align-items:center; justify-content:center;
   color:var(--black); text-decoration:none;
-  background:rgba(255,255,255,0.65); transition:all 0.18s; position:relative;
+  background:transparent; transition:all 0.2s; position:relative;
 }
-.icon-btn svg { width:14px; height:14px; }
-.icon-btn:hover { background:var(--black); color:var(--paper); border-color:var(--black); }
+.icon-btn svg { width:20px; height:20px; }
+.icon-btn:hover { background:var(--black); color:var(--paper); border-color:var(--black); border-style:solid; }
+.icon-resume {
+  font-family:'Geist',sans-serif; font-size:15px; font-weight:400;
+  color:var(--black); text-decoration:none;
+  height:52px; padding:0 22px;
+  display:inline-flex; align-items:center;
+  border:1px dashed rgba(100,140,200,0.45);
+  border-radius:999px; background:transparent;
+  letter-spacing:0.02em; transition:all 0.2s;
+}
+.icon-resume:hover { background:var(--black); color:var(--paper); border-color:var(--black); border-style:solid; }
 .icon-btn::after {
   content:attr(data-tip);
   position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%);
-  font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--mid);
+  font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--mid);
   white-space:nowrap; opacity:0; transition:opacity 0.2s; pointer-events:none;
 }
 .icon-btn:hover::after { opacity:1; }
@@ -228,16 +249,43 @@ hr { border:none; border-top:1px solid rgba(100,140,200,0.13); }
 .tag:hover { background:var(--black); color:var(--paper); border-color:var(--black); }
 .tag.hi { border-color:rgba(100,140,200,0.4); color:var(--black); font-weight:500; }
 
-.timeline { position:relative; max-width:100%; }
-.timeline::before { content:''; position:absolute; left:50%; top:0; bottom:0; width:1px; background:rgba(100,140,200,0.2); transform:translateX(-0.5px); }
-.tl-item { display:flex; align-items:flex-start; padding:24px 0; position:relative; }
-.tl-item.right .tl-side { margin-left:calc(50% + 24px); display:flex; gap:12px; align-items:flex-start; }
-.tl-item.left .tl-side { margin-right:calc(50% + 24px); display:flex; gap:12px; align-items:flex-start; flex-direction:row-reverse; text-align:right; width:calc(50% - 24px); }
-.tl-dot-wrap { position:absolute; left:50%; top:28px; transform:translateX(-50%); z-index:2; }
-.tl-dot { width:10px; height:10px; border-radius:50%; border:2px solid var(--blue); background:var(--paper); }
-.tl-date { position:absolute; top:28px; font-family:'Geist',sans-serif; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--mid); line-height:1.5; }
-.tl-item.right .tl-date { right:calc(50% + 24px); text-align:right; }
-.tl-item.left .tl-date { left:calc(50% + 24px); text-align:left; }
+.edu-grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.edu-card {
+  border:1.5px solid rgba(155,200,230,0.35);
+  border-radius:20px;
+  padding:28px 30px;
+  background:rgba(210,230,245,0.15);
+  transition:transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.edu-card:hover { transform:scale(1.01); border-color:rgba(100,150,200,0.55); box-shadow:0 2px 12px rgba(100,140,200,0.08); }
+.edu-head { display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+.edu-logo { width:48px; height:48px; min-width:48px; display:flex; align-items:center; justify-content:center; }
+.edu-logo img { width:100%; height:100%; object-fit:contain; }
+.edu-school { font-family:'Instrument Serif',serif; font-size:26px; font-weight:500; margin:0; color:var(--black); letter-spacing:-0.01em; line-height:1.15; }
+.edu-meta { font-family:'Geist',sans-serif; font-size:13px; color:var(--mid); margin-bottom:10px; line-height:1.55; }
+.edu-date { font-family:'Geist',sans-serif; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:#4a6f8a; margin-bottom:12px; }
+.edu-gpa { font-family:'Geist',sans-serif; font-size:14px; color:var(--black); margin-bottom:14px; font-weight:500; }
+.edu-coursework { font-size:14px; line-height:1.75; color:#666; }
+.edu-coursework strong { color:#4a6f8a; font-weight:500; }
+@media (max-width:760px) { .edu-grid { grid-template-columns:1fr; } }
+
+.timeline { position:relative; max-width:780px; padding-left:40px; will-change:transform; }
+.timeline::before { content:''; position:absolute; left:5px; top:8px; bottom:8px; width:1px; background:rgba(100,140,200,0.25); }
+.timeline-cursor {
+  position:absolute; left:0; top:0; width:13px; height:13px;
+  border-radius:50%; border:2px solid var(--blue); background:var(--paper);
+  z-index:3; pointer-events:none; will-change:transform;
+  transition:transform 0.18s cubic-bezier(0.22,0.61,0.36,1);
+  box-shadow:0 0 0 4px rgba(123,156,196,0.08);
+}
+.tl-item { display:block; padding:12px 0 32px; position:relative; will-change:transform, opacity; }
+.tl-item .tl-side { display:flex; gap:14px; align-items:flex-start; flex-direction:row; text-align:left; margin:0; width:auto; }
+.tl-item.right .tl-side,
+.tl-item.left .tl-side { margin:0; width:auto; text-align:left; flex-direction:row; }
+.tl-dot-wrap { display:none; }
+.tl-date { position:static; display:block; margin:0 0 10px; text-align:left; font-family:'Geist',sans-serif; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--mid); line-height:1.5; }
+.tl-item.right .tl-date,
+.tl-item.left .tl-date { position:static; left:auto; right:auto; text-align:left; }
 .tl-logo { width:64px; height:64px; min-width:64px; border-radius:8px; border:1px solid rgba(100,140,200,0.2); background:#fff; display:flex; align-items:center; justify-content:center; overflow:hidden; }
 .tl-logo img { width:100%; height:100%; object-fit:contain; }
 .tl-content { padding-top:0; }
@@ -247,7 +295,8 @@ hr { border:none; border-top:1px solid rgba(100,140,200,0.13); }
 .tl-sub { font-size:14px; color:var(--mid); margin-top:2px; }
 .tl-courses { font-size:13px; color:var(--mid); line-height:1.8; margin-top:10px; word-break:keep-all; overflow-wrap:break-word; }
 .tl-courses-label { font-family:'Geist',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#4a6f8a; display:inline-block; margin-bottom:2px; }
-.tl-item.left .tl-content { min-width:0; max-width:100%; }
+.tl-item.left .tl-content,
+.tl-item.right .tl-content { min-width:0; max-width:100%; text-align:left; }
 .tl-course-item { white-space:nowrap; }
 
 .proj-grid { display:flex; flex-direction:column; gap:14px; }
@@ -404,7 +453,7 @@ body.loaded .hero-right { animation-play-state:running; }
 @media (max-width: 480px) {
   .hero { padding: 40px 16px 36px; }
   .page { padding: 0 16px; }
-  .hero-name { font-size: 40px; }
+  .hero-name { font-size: 52px; }
   .polaroid { width:150px; margin-top:-90px; margin-left:-75px; }
   .polaroid img { width:130px; height:170px; }
   .hero-right { height:280px; }
@@ -487,19 +536,19 @@ body.loaded .hero-right { animation-play-state:running; }
 
     <div class="hero-role">Software Engineer</div>
 
+    <div class="hero-pill">Open to Summer 2026 internship roles in Data, AI, and Full-Stack Engineering.</div>
+
     <div class="icon-row-h">
-      <a href="mailto:sakshikarandee@gmail.com" class="icon-btn" data-tip="email">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      </a>
-      <a href="https://linkedin.com/in/sakshikarande" class="icon-btn" data-tip="linkedin">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-      </a>
-      <a href="https://github.com/sakshikarande26" class="icon-btn" data-tip="github">
+      <a href="https://github.com/sakshikarande26" class="icon-btn" data-tip="github" aria-label="GitHub">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
       </a>
-      <a href="#" class="icon-btn" data-tip="resume">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <a href="https://linkedin.com/in/sakshikarande" class="icon-btn" data-tip="linkedin" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
       </a>
+      <a href="mailto:sakshikarandee@gmail.com" class="icon-btn" data-tip="email" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
+      <a href="#" class="icon-resume">Resume</a>
     </div>
   </div>
 
@@ -597,8 +646,39 @@ body.loaded .hero-right { animation-play-state:running; }
   <hr>
 
   <div class="section">
-    <div class="sec-label"><span>Experience & Education</span></div>
+    <div class="sec-label"><span>Education</span></div>
+    <div class="edu-grid reveal">
+
+      <div class="edu-card">
+        <div class="edu-head">
+          <div class="edu-logo"><img src="assets/umass_logo.png" alt="UMass Amherst"></div>
+          <h3 class="edu-school">University of Massachusetts Amherst</h3>
+        </div>
+        <div class="edu-meta">MS in Computer Science &nbsp;·&nbsp; Amherst, MA<br>Manning College of Information & Computer Sciences</div>
+        <div class="edu-date">Sept 2025 — May 2027 (Expected)</div>
+        <div class="edu-coursework"><strong>Coursework:</strong> Machine Learning, Advanced NLP, Theory and Practice of Software Engineering, Optimization in Computer Science, Data Science Fundamentals</div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-head">
+          <div class="edu-logo"><img src="assets/mumbai_university.png" alt="University of Mumbai"></div>
+          <h3 class="edu-school">University of Mumbai</h3>
+        </div>
+        <div class="edu-meta">B.E. in Computer Science (with AI & Data Science) &nbsp;·&nbsp; Mumbai, IN</div>
+        <div class="edu-date">Dec 2021 — May 2025</div>
+        <div class="edu-gpa">CGPA: 8.88/10</div>
+        <div class="edu-coursework"><strong>Coursework:</strong> Data Structures and Algorithms, Statistics, Object-Oriented Programming, Database Management Systems, Distributed Computing, Cloud Computing</div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="section">
+    <div class="sec-label"><span>Experience</span></div>
     <div class="timeline">
+      <div class="timeline-cursor" id="timelineCursor"></div>
 
       <!-- 2025 — Present: UMass Research (right) + UMass MS (left) -->
       <div class="tl-item right reveal">
@@ -614,22 +694,8 @@ body.loaded .hero-right { animation-play-state:running; }
         </div>
       </div>
 
+      <!-- 2024 — 2025: Axia (left) -->
       <div class="tl-item left reveal">
-        <div class="tl-date">Sept 2025 —<br>May 2027 (Expected)</div>
-        <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
-        <div class="tl-side">
-          <div class="tl-logo" style="border:none; background:transparent;"><img src="assets/umass_logo.png" alt="UMass Amherst"></div>
-          <div class="tl-content" data-date="Sept 2025 — May 2027 (Expected)">
-            <div class="tl-role">University of Massachusetts Amherst</div>
-            <div class="tl-sub">Manning College of Information & Computer Sciences</div>
-            <div class="tl-place">MS in Computer Science &nbsp;·&nbsp; Amherst, MA</div>
-            <div class="tl-courses"><span class="tl-courses-label">Relevant Coursework</span><br><span class="tl-course-item">Machine Learning</span> · <span class="tl-course-item">Advanced NLP</span> · <span class="tl-course-item">Graduate Researcher @BioNLP Lab</span> · <span class="tl-course-item">Theory and Practice of Software Engineering</span> · <span class="tl-course-item">Optimization in Computer Science</span> · <span class="tl-course-item">Data Science Fundamentals</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2024 — 2025: Axia (right) -->
-      <div class="tl-item right reveal">
         <div class="tl-date">Aug 2024 —<br>May 2025</div>
         <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
         <div class="tl-side">
@@ -656,8 +722,8 @@ body.loaded .hero-right { animation-play-state:running; }
         </div>
       </div>
 
-      <!-- 2022 — 2023: Klaere (right) -->
-      <div class="tl-item right reveal">
+      <!-- 2022 — 2023: Klaere (left) -->
+      <div class="tl-item left reveal">
         <div class="tl-date">Dec 2022 —<br>Feb 2023</div>
         <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
         <div class="tl-side">
@@ -666,22 +732,6 @@ body.loaded .hero-right { animation-play-state:running; }
             <div class="tl-role">App Development Intern</div>
             <div class="tl-place">Klaere &nbsp;·&nbsp; Mumbai, IN</div>
             <div class="tl-desc"><ul style="margin:0;padding-left:18px;list-style:disc;"><li>Developed native Android features using Java and Android Studio for B2B trekking platform adopted by 50+ trek organizers</li><li>Integrated Google Maps and Weather APIs for real-time route tracking and weather monitoring with improved data accuracy</li><li>Built 4+ core features including home screen, trek booking system, user profiles, and emergency contact registration</li><li>Optimized app performance reducing crashes and improving load times through efficient API integration and error handling</li></ul></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2021 — 2025: University of Mumbai (left) -->
-      <div class="tl-item left reveal">
-        <div class="tl-date">Dec 2021 —<br>May 2025</div>
-        <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
-        <div class="tl-side">
-          <div class="tl-logo" style="border:none; background:transparent; width:80px; height:80px; min-width:80px;"><img src="assets/mumbai_university.png" alt="University of Mumbai"></div>
-          <div class="tl-content" data-date="Dec 2021 — May 2025">
-            <div class="tl-role">University of Mumbai</div>
-            <div class="tl-sub">Bachelor of Engineering in Computer Science (with AI & Data Science)</div>
-            <div class="tl-place">Mumbai, IN &nbsp;·&nbsp; 8.88/10 CGPA</div>
-            <div class="tl-courses"><span class="tl-courses-label">Activities</span><br><span class="tl-course-item">National Student Data Corps</span> · <span class="tl-course-item">Microsoft Learn Students Club</span></div>
-            <div class="tl-courses"><span class="tl-courses-label">Relevant Coursework</span><br><span class="tl-course-item">Data Structures and Algorithms</span> · <span class="tl-course-item">Statistics</span> · <span class="tl-course-item">Object-Oriented Programming</span> · <span class="tl-course-item">Database Management Systems</span> · <span class="tl-course-item">Distributed Computing</span> · <span class="tl-course-item">Cloud Computing</span></div>
           </div>
         </div>
       </div>
@@ -696,81 +746,31 @@ body.loaded .hero-right { animation-play-state:running; }
     <div class="proj-grid">
 
       <div class="proj-card reveal">
-        <div class="proj-meta">Information Retrieval · Optimization &nbsp;·&nbsp; 2025</div>
-        <div class="proj-head"><div class="proj-name">Scaling Diversity Aware Re-ranking via Efficient Submodular Maximization</div><span class="proj-arrow">&#9662;</span></div>
-        <div class="proj-techs"><span class="ptag">Submodular Optimization</span><span class="ptag">IR</span><span class="ptag">Python</span></div>
+        <div class="proj-meta">Full Stack · Web &nbsp;·&nbsp; Feb 2026 — Present</div>
+        <div class="proj-head"><div class="proj-name">UMass Amherst — Free Spaces</div><span class="proj-arrow">&#9662;</span></div>
+        <div class="proj-techs"><span class="ptag">React</span><span class="ptag">TypeScript</span><span class="ptag">Supabase</span><span class="ptag">Tailwind CSS</span><span class="ptag">react-leaflet</span></div>
         <div class="proj-detail">
-          <div class="proj-desc">Submodular optimization approach to diversity-aware search re-ranking. Selects a top-k document subset that maximizes information coverage while minimizing redundancy, leveraging diminishing returns to efficiently balance relevance with diversity across large-scale document collections.</div>
-          <a href="#" class="proj-github" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>View on GitHub</a>
-        </div>
-      </div>
-
-      <div class="proj-card reveal">
-        <div class="proj-meta">Full Stack &nbsp;·&nbsp; In Progress</div>
-        <div class="proj-head"><div class="proj-name">Nook</div><span class="proj-arrow">&#9662;</span></div>
-        <div class="proj-techs"><span class="ptag">React</span><span class="ptag">Django</span><span class="ptag">PostgreSQL</span></div>
-        <div class="proj-detail">
-          <div class="proj-desc">Campus study space finder that helps students locate available spots without walking building to building. Community-driven check-ins estimate real-time occupancy, visualized on an interactive campus map with heatmap-style indicators and filters for quiet areas, group seating, and power outlets.</div>
+          <div class="proj-desc"><ul style="margin:0;padding-left:18px;list-style:disc;"><li>Built a full-stack study space finder with React + TypeScript and Supabase, serving real-time occupancy across UMass buildings</li><li>Designed a normalized 8-table PostgreSQL schema with RLS policies, ensuring data integrity at scale</li><li>Implemented a three-tier reservation system with concurrent booking support, reducing space discovery time for 500+ students</li><li>Led 4-sprint Agile delivery across a 4-person team, shipping map, occupancy, and reservations to production on Vercel with CI/CD</li></ul></div>
           <a href="#" class="proj-github" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>View on GitHub</a>
         </div>
       </div>
 
       <div class="proj-card reveal">
         <div class="proj-meta">Full Stack · AI &nbsp;·&nbsp; Nov 2025</div>
-        <div class="proj-head"><div class="proj-name">YesReply</div><span class="proj-arrow">&#9662;</span></div>
-        <div class="proj-techs"><span class="ptag">ReactJS</span><span class="ptag">PostgreSQL</span><span class="ptag">AWS SES</span><span class="ptag">Stripe</span><span class="ptag">RabbitMQ</span></div>
+        <div class="proj-head"><div class="proj-name">YesReply — Monetized Email Platform</div><span class="proj-arrow">&#9662;</span></div>
+        <div class="proj-techs"><span class="ptag">ReactJS</span><span class="ptag">PostgreSQL</span><span class="ptag">AWS SES</span><span class="ptag">Cloudflare</span><span class="ptag">Stripe Connect</span><span class="ptag">RabbitMQ</span></div>
         <div class="proj-detail">
-          <div class="proj-desc">Monetized email platform where users charge a fee before strangers reach their inbox. Fault-tolerant pipeline using AWS SES, SNS, and Cloudflare Workers, queued via RabbitMQ for exactly-once delivery. Stripe payments with in-app wallet and cashout. JWT auth, React.js frontend for real-time inbox experience.</div>
-          <a href="#" class="proj-github" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>View on GitHub</a>
-        </div>
-      </div>
-
-      <div class="proj-card reveal">
-        <div class="proj-meta">NLP · Deep Learning &nbsp;·&nbsp; Sep 2025</div>
-        <div class="proj-head"><div class="proj-name">Multi-Stage Cyberbullying Detection</div><span class="proj-arrow">&#9662;</span></div>
-        <div class="proj-techs"><span class="ptag">RoBERTa</span><span class="ptag">NLP</span><span class="ptag">GoEmotions</span></div>
-        <div class="proj-detail">
-          <div class="proj-desc">Multi-stage cyberbullying detection system using fine-tuned RoBERTa on GoEmotions for multi-label emotion recognition and sarcasm detection. Fused embeddings from both models into a feedforward classifier for binary cyberbullying detection, outperforming a TF-IDF baseline. Detailed error analysis on misclassified samples.</div>
+          <div class="proj-desc"><ul style="margin:0;padding-left:18px;list-style:disc;"><li>Built a full-stack paywalled email platform with React and PostgreSQL, supporting 1,000+ messages/sec across user conversations</li><li>Engineered an event-driven backend using AWS SES, Cloudflare, and RabbitMQ, reducing message latency by 40%</li><li>Integrated Gemini AI for email thread summarization and automated meeting scheduling, cutting manual email handling by 50%</li></ul></div>
           <a href="#" class="proj-github" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>View on GitHub</a>
         </div>
       </div>
 
       <div class="proj-card reveal">
         <div class="proj-meta">ML · Reinforcement Learning &nbsp;·&nbsp; Mar 2025</div>
-        <div class="proj-head"><div class="proj-name">RL Bond Market Agent</div><span class="proj-arrow">&#9662;</span></div>
-        <div class="proj-techs"><span class="ptag">PyTorch</span><span class="ptag">DQN</span><span class="ptag">NumPy</span></div>
+        <div class="proj-head"><div class="proj-name">RL-Based Quantitative Analysis for Bond Market Decision-making</div><span class="proj-arrow">&#9662;</span></div>
+        <div class="proj-techs"><span class="ptag">PyTorch</span><span class="ptag">DQN</span><span class="ptag">Pandas</span><span class="ptag">NumPy</span></div>
         <div class="proj-detail">
-          <div class="proj-desc">Bond trading as sequential decision-making. Deep Q-Network with risk-aware reward shaping across 20K+ market timesteps. 93% decision accuracy, outperforming supervised baselines.</div>
-          <a href="#" class="proj-github" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>View on GitHub</a>
-        </div>
-      </div>
-
-      <div class="proj-card reveal">
-        <div class="proj-meta">ML · Finance &nbsp;·&nbsp; Nov 2024</div>
-        <div class="proj-head"><div class="proj-name">Gold Price Transformer</div><span class="proj-arrow">&#9662;</span></div>
-        <div class="proj-techs"><span class="ptag">Keras</span><span class="ptag">TensorFlow</span><span class="ptag">Transformers</span></div>
-        <div class="proj-detail">
-          <div class="proj-desc">Multi-head attention transformer on 10K+ LBMA gold observations. 98.1% forecasting accuracy.</div>
-          <a href="#" class="proj-github" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>View on GitHub</a>
-        </div>
-      </div>
-
-      <div class="proj-card reveal">
-        <div class="proj-meta">Computer Vision · Full Stack &nbsp;·&nbsp; 2024</div>
-        <div class="proj-head"><div class="proj-name">UniAttend</div><span class="proj-arrow">&#9662;</span></div>
-        <div class="proj-techs"><span class="ptag">Flask</span><span class="ptag">face_recognition</span><span class="ptag">OpenCV</span></div>
-        <div class="proj-detail">
-          <div class="proj-desc">Web-based attendance system using facial recognition to automate attendance. Identifies individuals from uploaded images or live webcam captures via the face_recognition library. Modern responsive Flask interface with persistent CSV-based attendance storage.</div>
-          <a href="#" class="proj-github" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>View on GitHub</a>
-        </div>
-      </div>
-
-      <div class="proj-card reveal">
-        <div class="proj-meta">Full Stack · AI &nbsp;·&nbsp; 2024</div>
-        <div class="proj-head"><div class="proj-name">FoundIt</div><span class="proj-arrow">&#9662;</span></div>
-        <div class="proj-techs"><span class="ptag">React</span><span class="ptag">Node.js</span><span class="ptag">AI Assistant</span></div>
-        <div class="proj-detail">
-          <div class="proj-desc">AI-assisted e-commerce platform integrating an intelligent assistant for product discovery and navigation. Users browse and search products while a guided assistant surfaces relevant items and streamlines the shopping workflow, enhancing usability within a traditional online marketplace.</div>
+          <div class="proj-desc"><ul style="margin:0;padding-left:18px;list-style:disc;"><li>Built a custom trading environment and autonomous agent using Deep-Q-Networks with risk-aware reward shaping</li><li>Conducted hyperparameter tuning and ablation studies to optimise policy convergence and reward stability</li><li>Achieved 93% accuracy, outperforming traditional rule-based and supervised baselines through optimized state-action modeling</li></ul></div>
           <a href="#" class="proj-github" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>View on GitHub</a>
         </div>
       </div>
@@ -874,6 +874,9 @@ const heroRight = document.querySelector('.hero-right');
 const polaroid = document.querySelector('.polaroid');
 const sections = document.querySelectorAll('.section');
 const secLabels = document.querySelectorAll('.sec-label');
+const tlItems = document.querySelectorAll('.tl-item');
+const timeline = document.querySelector('.timeline');
+const timelineCursor = document.getElementById('timelineCursor');
 
 let ticking = false;
 window.addEventListener('scroll', () => {
@@ -928,6 +931,28 @@ window.addEventListener('scroll', () => {
           label.style.transform = `translateX(${(1 - progress) * 12}px)`;
         }
       });
+
+      // timeline items parallax — each item drifts subtly against its own viewport position
+      // (only after reveal fires, so we don't override the initial reveal animation)
+      tlItems.forEach((item) => {
+        if (!item.classList.contains('visible')) return;
+        const rect = item.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const progress = (center - vh / 2) / vh;
+        if (progress > -1 && progress < 1) {
+          const drift = progress * -18;
+          item.style.transform = `translateY(${drift}px)`;
+        }
+      });
+
+      // single timeline cursor — follows scroll position along the spine
+      if (timeline && timelineCursor) {
+        const tlRect = timeline.getBoundingClientRect();
+        const tlHeight = timeline.offsetHeight;
+        // anchor the cursor to the viewport center, expressed as a Y offset inside the timeline
+        const cursorY = Math.max(4, Math.min(tlHeight - 16, vh / 2 - tlRect.top));
+        timelineCursor.style.transform = `translateY(${cursorY}px)`;
+      }
 
       ticking = false;
     });
