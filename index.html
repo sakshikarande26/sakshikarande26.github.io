@@ -306,8 +306,37 @@ hr { border:none; border-top:1px solid rgba(100,140,200,0.13); }
 .proj-card .proj-meta { font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--mid); margin-bottom:8px; }
 .proj-card .proj-name { font-family:'Geist',sans-serif; font-size:15px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:#4a6f8a; margin:0; }
 .proj-head { display:flex; justify-content:space-between; align-items:center; }
-.proj-arrow { font-size:14px; color:var(--mid); transition:transform 0.3s ease; }
-.proj-card.open .proj-arrow { transform:rotate(180deg); }
+.proj-arrow {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'Geist',sans-serif; font-size:10px; font-weight:500;
+  letter-spacing:0.18em; text-transform:uppercase; color:#4a6f8a;
+  transition:color 0.2s ease;
+  white-space:nowrap;
+}
+.proj-card:hover .proj-arrow { color:var(--black); }
+.proj-arrow-label { line-height:1; }
+.proj-arrow-label::before { content:'Read more'; }
+.proj-card.open .proj-arrow-label::before { content:'Show less'; }
+.proj-chev { display:inline-block; font-size:13px; transition:transform 0.3s ease; }
+.proj-card.open .proj-chev { transform:rotate(180deg); }
+
+.proj-hint {
+  display:inline-flex; align-items:center; gap:10px;
+  margin-bottom:20px;
+  padding:9px 18px;
+  background:rgba(155,200,230,0.14);
+  border:1px dashed rgba(100,140,200,0.4);
+  border-radius:999px;
+  font-family:'Geist',sans-serif; font-size:12px;
+  color:#4a6f8a; letter-spacing:0.04em;
+  animation: hint-pulse 2.6s ease-in-out infinite;
+}
+.proj-hint svg { width:13px; height:13px; opacity:0.85; }
+.proj-hint.discovered { animation:none; opacity:0.55; transition:opacity 0.5s ease; }
+@keyframes hint-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(123,156,196,0.35); }
+  50% { box-shadow: 0 0 0 6px rgba(123,156,196,0); }
+}
 .proj-techs { display:flex; gap:6px; flex-wrap:wrap; margin-top:12px; }
 .ptag { font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--mid); border:1px solid rgba(100,140,200,0.2); padding:3px 9px; border-radius:6px; background:rgba(255,255,255,0.5); }
 .proj-detail { max-height:0; overflow:hidden; opacity:0; transition:max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease; margin-top:0; border-top:0 solid rgba(100,140,200,0.1); padding-top:0; }
@@ -536,7 +565,7 @@ body.loaded .hero-right { animation-play-state:running; }
 
     <div class="hero-role">Software Engineer</div>
 
-    <div class="hero-pill">Open to Summer 2026 internship roles in Data, AI, and Full-Stack Engineering.</div>
+    <div class="hero-pill">Open to Summer 2026 Software Development internship roles</div>
 
     <div class="icon-row-h">
       <a href="https://github.com/sakshikarande26" class="icon-btn" data-tip="github" aria-label="GitHub">
@@ -743,11 +772,15 @@ body.loaded .hero-right { animation-play-state:running; }
 
   <div class="section">
     <div class="sec-label"><span>Projects</span></div>
+    <div class="proj-hint" role="note" aria-label="Tip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 7-7"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>
+      <span>Tap any project card to read the full breakdown.</span>
+    </div>
     <div class="proj-grid">
 
       <div class="proj-card reveal">
         <div class="proj-meta">Full Stack · Web &nbsp;·&nbsp; Feb 2026 — Present</div>
-        <div class="proj-head"><div class="proj-name">UMass Amherst — Free Spaces</div><span class="proj-arrow">&#9662;</span></div>
+        <div class="proj-head"><div class="proj-name">UMass Amherst — Free Spaces</div><span class="proj-arrow"><span class="proj-arrow-label"></span><span class="proj-chev">&#9662;</span></span></div>
         <div class="proj-techs"><span class="ptag">React</span><span class="ptag">TypeScript</span><span class="ptag">Supabase</span><span class="ptag">Tailwind CSS</span><span class="ptag">react-leaflet</span></div>
         <div class="proj-detail">
           <div class="proj-desc"><ul style="margin:0;padding-left:18px;list-style:disc;"><li>Built a full-stack study space finder with React + TypeScript and Supabase, serving real-time occupancy across UMass buildings</li><li>Designed a normalized 8-table PostgreSQL schema with RLS policies, ensuring data integrity at scale</li><li>Implemented a three-tier reservation system with concurrent booking support, reducing space discovery time for 500+ students</li><li>Led 4-sprint Agile delivery across a 4-person team, shipping map, occupancy, and reservations to production on Vercel with CI/CD</li></ul></div>
@@ -756,8 +789,18 @@ body.loaded .hero-right { animation-play-state:running; }
       </div>
 
       <div class="proj-card reveal">
+        <div class="proj-meta">Agentic AI · Full Stack &nbsp;·&nbsp; Mar 2026</div>
+        <div class="proj-head"><div class="proj-name">Agentic Web Entity Extractor</div><span class="proj-arrow"><span class="proj-arrow-label"></span><span class="proj-chev">&#9662;</span></span></div>
+        <div class="proj-techs"><span class="ptag">FastAPI</span><span class="ptag">Gemini 2.5 Flash</span><span class="ptag">SerpAPI</span><span class="ptag">React</span><span class="ptag">Tailwind CSS</span></div>
+        <div class="proj-detail">
+          <div class="proj-desc"><ul style="margin:0;padding-left:18px;list-style:disc;"><li>Built an 8-stage agentic pipeline returning structured entity tables with passage-level citations in 45–180s</li><li>Reduced extracted entities from 185 → 32 per query through relevance filtering, citation validation, and fuzzy deduplication</li><li>Shipped React frontend with citation badges and source drawer; direct API calls throughout, deployed on Render</li></ul></div>
+          <a href="#" class="proj-github" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>View on GitHub</a>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
         <div class="proj-meta">Full Stack · AI &nbsp;·&nbsp; Nov 2025</div>
-        <div class="proj-head"><div class="proj-name">YesReply — Monetized Email Platform</div><span class="proj-arrow">&#9662;</span></div>
+        <div class="proj-head"><div class="proj-name">YesReply — Monetized Email Platform</div><span class="proj-arrow"><span class="proj-arrow-label"></span><span class="proj-chev">&#9662;</span></span></div>
         <div class="proj-techs"><span class="ptag">ReactJS</span><span class="ptag">PostgreSQL</span><span class="ptag">AWS SES</span><span class="ptag">Cloudflare</span><span class="ptag">Stripe Connect</span><span class="ptag">RabbitMQ</span></div>
         <div class="proj-detail">
           <div class="proj-desc"><ul style="margin:0;padding-left:18px;list-style:disc;"><li>Built a full-stack paywalled email platform with React and PostgreSQL, supporting 1,000+ messages/sec across user conversations</li><li>Engineered an event-driven backend using AWS SES, Cloudflare, and RabbitMQ, reducing message latency by 40%</li><li>Integrated Gemini AI for email thread summarization and automated meeting scheduling, cutting manual email handling by 50%</li></ul></div>
@@ -767,7 +810,7 @@ body.loaded .hero-right { animation-play-state:running; }
 
       <div class="proj-card reveal">
         <div class="proj-meta">ML · Reinforcement Learning &nbsp;·&nbsp; Mar 2025</div>
-        <div class="proj-head"><div class="proj-name">RL-Based Quantitative Analysis for Bond Market Decision-making</div><span class="proj-arrow">&#9662;</span></div>
+        <div class="proj-head"><div class="proj-name">RL-Based Quantitative Analysis for Bond Market Decision-making</div><span class="proj-arrow"><span class="proj-arrow-label"></span><span class="proj-chev">&#9662;</span></span></div>
         <div class="proj-techs"><span class="ptag">PyTorch</span><span class="ptag">DQN</span><span class="ptag">Pandas</span><span class="ptag">NumPy</span></div>
         <div class="proj-detail">
           <div class="proj-desc"><ul style="margin:0;padding-left:18px;list-style:disc;"><li>Built a custom trading environment and autonomous agent using Deep-Q-Networks with risk-aware reward shaping</li><li>Conducted hyperparameter tuning and ablation studies to optimise policy convergence and reward stability</li><li>Achieved 93% accuracy, outperforming traditional rule-based and supervised baselines through optimized state-action modeling</li></ul></div>
@@ -1013,6 +1056,9 @@ document.querySelectorAll('.proj-card').forEach(card => {
     const wasOpen = card.classList.contains('open');
     document.querySelectorAll('.proj-card.open').forEach(c => c.classList.remove('open'));
     if(!wasOpen) card.classList.add('open');
+    // Once the user has opened any card, retire the pulsing hint
+    const hint = document.querySelector('.proj-hint');
+    if (hint) hint.classList.add('discovered');
   });
 });
 
