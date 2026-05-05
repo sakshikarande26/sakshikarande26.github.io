@@ -275,7 +275,6 @@ hr { border:none; border-top:1px solid rgba(100,140,200,0.13); }
   position:absolute; left:0; top:0; width:13px; height:13px;
   border-radius:50%; border:2px solid var(--blue); background:var(--paper);
   z-index:3; pointer-events:none; will-change:transform;
-  transition:transform 0.18s cubic-bezier(0.22,0.61,0.36,1);
   box-shadow:0 0 0 4px rgba(123,156,196,0.08);
 }
 .tl-item { display:block; padding:12px 0 32px; position:relative; will-change:transform, opacity; }
@@ -361,6 +360,7 @@ hr { border:none; border-top:1px solid rgba(100,140,200,0.13); }
 .contact-form input::placeholder, .contact-form textarea::placeholder { color:var(--mid); font-size:14px; }
 .contact-form textarea { resize:vertical; min-height:100px; }
 .contact-form .form-row { margin-bottom:12px; }
+.contact-btn-row { display:flex; justify-content:center; margin-top:6px; }
 .contact-btn { font-family:'Geist',sans-serif; font-size:13px; letter-spacing:0.14em; text-transform:uppercase; padding:10px 28px; border:1.5px solid #4a6f8a; border-radius:12px; background:transparent; color:#4a6f8a; cursor:pointer; transition:background 0.2s ease, color 0.2s ease; }
 .contact-btn:hover { background:#4a6f8a; color:var(--paper); }
 .contact-btn:disabled { opacity:0.5; cursor:not-allowed; }
@@ -883,7 +883,7 @@ body.loaded .hero-right { animation-play-state:running; }
       <div class="form-row"><input type="email" name="email" placeholder="Your email" required></div>
       <div class="form-row"><input type="text" name="subject" placeholder="Subject"></div>
       <div class="form-row"><textarea name="message" placeholder="Your message..." required></textarea></div>
-      <button type="submit" class="contact-btn">Send Message</button>
+      <div class="contact-btn-row"><button type="submit" class="contact-btn">Send Message</button></div>
       <div class="form-msg" id="formMsg">Message sent!</div>
     </form>
   </div>
@@ -931,22 +931,22 @@ window.addEventListener('scroll', () => {
       // floating elements parallax
       pEls.forEach(el => {
         const speed = parseFloat(el.dataset.p);
-        el.style.transform = `translateY(${s * speed}px) rotate(${s * speed * 0.5}deg)`;
+        el.style.transform = `translate3d(0, ${s * speed}px, 0) rotate(${s * speed * 0.5}deg)`;
       });
 
-      // hero left drifts up slower (text stays longer)
-      if (heroLeft) {
-        heroLeft.style.transform = `translateY(${s * -0.12}px)`;
+      // hero left drifts up slower (text stays longer) — only while hero is on-screen
+      if (heroLeft && s < vh) {
+        heroLeft.style.transform = `translate3d(0, ${s * -0.08}px, 0)`;
         heroLeft.style.opacity = Math.max(0, 1 - s / (vh * 0.8));
       }
 
-      // polaroid drifts at different rate + subtle tilt
-      if (heroRight) {
-        heroRight.style.transform = `translateY(${s * -0.06}px)`;
+      // polaroid drifts at different rate + subtle tilt — only while hero is on-screen
+      if (heroRight && s < vh) {
+        heroRight.style.transform = `translate3d(0, ${s * -0.04}px, 0)`;
         heroRight.style.opacity = Math.max(0, 1 - s / (vh * 0.9));
       }
-      if (polaroid) {
-        polaroid.style.transform = `rotate(${-1.5 + s * 0.008}deg) translateY(${s * 0.04}px)`;
+      if (polaroid && s < vh) {
+        polaroid.style.transform = `rotate(${-1.5 + s * 0.005}deg) translate3d(0, ${s * 0.02}px, 0)`;
       }
 
       // scroll elements fade in at breakpoints
@@ -957,44 +957,33 @@ window.addEventListener('scroll', () => {
         if (s > vh * t) {
           el.style.opacity = '';
           el.classList.add('visible');
-          const drift = (s - vh * t) * -0.08;
-          const wobble = Math.sin(s * 0.003) * 2;
-          el.style.transform = `translateY(${drift}px) rotate(${wobble}deg)`;
+          const drift = (s - vh * t) * -0.05;
+          const wobble = Math.sin(s * 0.003) * 1.5;
+          el.style.transform = `translate3d(0, ${drift}px, 0) rotate(${wobble}deg)`;
         } else {
           el.style.opacity = '0';
           el.classList.remove('visible');
         }
       });
 
-      // section labels shift slightly for depth
-      secLabels.forEach(label => {
-        const rect = label.getBoundingClientRect();
-        const progress = (vh - rect.top) / vh;
-        if (progress > 0 && progress < 1.5) {
-          label.style.transform = `translateX(${(1 - progress) * 12}px)`;
-        }
-      });
-
-      // timeline items parallax — each item drifts subtly against its own viewport position
-      // (only after reveal fires, so we don't override the initial reveal animation)
+      // timeline items parallax — small, GPU-composited drift, only after reveal fires
       tlItems.forEach((item) => {
         if (!item.classList.contains('visible')) return;
         const rect = item.getBoundingClientRect();
         const center = rect.top + rect.height / 2;
         const progress = (center - vh / 2) / vh;
         if (progress > -1 && progress < 1) {
-          const drift = progress * -18;
-          item.style.transform = `translateY(${drift}px)`;
+          const drift = progress * -8;
+          item.style.transform = `translate3d(0, ${drift}px, 0)`;
         }
       });
 
-      // single timeline cursor — follows scroll position along the spine
+      // single timeline cursor — follows scroll position along the spine, no easing
       if (timeline && timelineCursor) {
         const tlRect = timeline.getBoundingClientRect();
         const tlHeight = timeline.offsetHeight;
-        // anchor the cursor to the viewport center, expressed as a Y offset inside the timeline
         const cursorY = Math.max(4, Math.min(tlHeight - 16, vh / 2 - tlRect.top));
-        timelineCursor.style.transform = `translateY(${cursorY}px)`;
+        timelineCursor.style.transform = `translate3d(0, ${cursorY}px, 0)`;
       }
 
       ticking = false;
