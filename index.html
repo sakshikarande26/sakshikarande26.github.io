@@ -254,24 +254,6 @@ body {
   z-index: 30;
 }
 .scroll-el.visible { opacity:1; }
-@media (max-width: 760px) {
-  .scroll-el.sticker { display: none; }
-}
-
-/* ambient flower field — 50 flowers scattered top→bottom, generated in JS */
-#flower-field {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  pointer-events: none;
-  z-index: 2;
-}
-.flower {
-  position: absolute;
-  pointer-events: none;
-  will-change: transform;
-}
-.flower svg { width: 100%; height: auto; display: block; }
-@media (max-width: 760px) { .flower { display: none; } }
 
 /* ══ PAGE CONTENT ══ */
 .page { max-width: 1100px; margin: 0 auto; padding: 0 24px 0 72px; }
@@ -864,38 +846,6 @@ body.loaded .hero-right { animation-play-state:running; }
 </div>
 <div class="scroll-el" id="sel4" style="right:20px; top:75%; width:14px; opacity:0;">
   <svg viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" stroke="#7b9cc4" stroke-width="1" opacity="0.3" transform="rotate(15 7 7)"/></svg>
-</div>
-
-<!-- ══ EXTRA PARALLAX STICKERS (super-evident drift; per-element speed via data-drift) ══ -->
-<div class="scroll-el sticker" style="left:32px; top:18%; width:34px;" data-sticker data-t="0.06" data-drift="-0.38" data-wobble="4">
-  <svg viewBox="0 0 50 50" fill="none"><path d="M25 3L27.5 22.5L47 25L27.5 27.5L25 47L22.5 27.5L3 25L22.5 22.5Z" fill="#7b9cc4" opacity="0.55"/></svg>
-</div>
-<div class="scroll-el sticker" style="right:48px; top:24%; width:36px;" data-sticker data-t="0.10" data-drift="0.32" data-wobble="3">
-  <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9-9c-1-2.5 0-6 3.5-6.5C9 5 11 7 12 9c1-2 3-4 5.5-3.5C21 6 22 9.5 21 12c-2 4.5-9 9-9 9z" fill="#e0a8b8" opacity="0.6"/></svg>
-</div>
-<div class="scroll-el sticker" style="left:52px; top:48%; width:50px;" data-sticker data-t="0.16" data-drift="-0.45" data-wobble="5">
-  <svg viewBox="0 0 60 60" fill="none"><g opacity="0.5"><circle cx="30" cy="14" r="9" fill="#c3d0e3"/><circle cx="46" cy="22" r="9" fill="#c3d0e3"/><circle cx="42" cy="42" r="9" fill="#c3d0e3"/><circle cx="18" cy="42" r="9" fill="#c3d0e3"/><circle cx="14" cy="22" r="9" fill="#c3d0e3"/><circle cx="30" cy="28" r="6" fill="#e8d28a"/></g></svg>
-</div>
-<div class="scroll-el sticker" style="right:30px; top:42%; width:30px;" data-sticker data-t="0.22" data-drift="0.40" data-wobble="3.5">
-  <svg viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#7b9cc4" stroke-width="1.5" opacity="0.5"/></svg>
-</div>
-<div class="scroll-el sticker" style="left:24px; top:72%; width:72px;" data-sticker data-t="0.30" data-drift="-0.36" data-wobble="2.5">
-  <svg viewBox="0 0 80 20" fill="none"><path d="M2 10 Q 15 0, 25 10 T 50 10 T 75 10" stroke="#7b9cc4" stroke-width="2" stroke-linecap="round" opacity="0.55"/></svg>
-</div>
-<div class="scroll-el sticker" style="right:60px; top:66%; width:28px;" data-sticker data-t="0.38" data-drift="0.48" data-wobble="4">
-  <svg viewBox="0 0 30 30" fill="none"><path d="M15 5V25M5 15H25" stroke="#7b9cc4" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/></svg>
-</div>
-<div class="scroll-el sticker" style="left:14px; top:32%; width:38px;" data-sticker data-t="0.44" data-drift="-0.30" data-wobble="3">
-  <svg viewBox="0 0 40 40" fill="none"><rect x="8" y="8" width="24" height="24" stroke="#7b9cc4" stroke-width="1.5" opacity="0.5" transform="rotate(20 20 20)"/></svg>
-</div>
-<div class="scroll-el sticker" style="right:18px; top:84%; width:58px;" data-sticker data-t="0.50" data-drift="0.42" data-wobble="3">
-  <svg viewBox="0 0 80 50"><path d="M20 35 Q5 35 10 22 Q10 10 25 13 Q30 5 42 10 Q55 8 58 22 Q70 22 68 35 L20 35Z" fill="#cbd6e7" opacity="0.6"/></svg>
-</div>
-<div class="scroll-el sticker" style="left:42px; top:88%; width:24px;" data-sticker data-t="0.55" data-drift="-0.50" data-wobble="4.5">
-  <svg viewBox="0 0 40 40" fill="none"><path d="M20 4L24 16L36 20L24 24L20 36L16 24L4 20L16 16Z" fill="#e8c587" opacity="0.6"/></svg>
-</div>
-<div class="scroll-el sticker" style="right:38px; top:14%; width:22px;" data-sticker data-t="0.60" data-drift="0.36" data-wobble="3">
-  <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9-9c-1-2.5 0-6 3.5-6.5C9 5 11 7 12 9c1-2 3-4 5.5-3.5C21 6 22 9.5 21 12c-2 4.5-9 9-9 9z" fill="#b8d4e8" opacity="0.55"/></svg>
 </div>
 
 <!-- ══ VIEW TOGGLE ══ -->
@@ -1626,21 +1576,6 @@ window.addEventListener('scroll', () => {
         }
       });
 
-      // extra parallax stickers — evident drift, per-element speed via data-drift
-      document.querySelectorAll('[data-sticker]').forEach(el => {
-        const t = parseFloat(el.dataset.t || '0.05');
-        const drift = parseFloat(el.dataset.drift || '-0.25');
-        const wobbleAmt = parseFloat(el.dataset.wobble || '3');
-        if (s > vh * t) {
-          el.classList.add('visible');
-          const d = (s - vh * t) * drift;
-          const w = Math.sin(s * 0.0025) * wobbleAmt;
-          el.style.transform = `translate3d(0, ${d}px, 0) rotate(${w}deg)`;
-        } else {
-          el.classList.remove('visible');
-        }
-      });
-
       // timeline items parallax — small, GPU-composited drift, only after reveal fires
       tlItems.forEach((item) => {
         if (!item.classList.contains('visible')) return;
@@ -1661,54 +1596,11 @@ window.addEventListener('scroll', () => {
         timelineCursor.style.transform = `translate3d(0, ${cursorY}px, 0)`;
       }
 
-      // ambient flower field parallax — per-element drift via data-drift
-      for (let i = 0; i < flowers.length; i++) {
-        const f = flowers[i];
-        const d = parseFloat(f.dataset.drift);
-        const r = parseFloat(f.dataset.baseRot);
-        f.style.transform = `translate3d(0, ${s * d}px, 0) rotate(${r + s * d * 0.06}deg)`;
-      }
-
       ticking = false;
     });
     ticking = true;
   }
 }, { passive:true });
-
-// ── AMBIENT FLOWER FIELD (50 flowers scattered top→bottom, varied sizes + parallax)
-const FLOWER_SVG = '<svg viewBox="0 0 60 60" fill="none"><g><circle cx="30" cy="14" r="9" fill="#c3d0e3"/><circle cx="46" cy="22" r="9" fill="#c3d0e3"/><circle cx="42" cy="42" r="9" fill="#c3d0e3"/><circle cx="18" cy="42" r="9" fill="#c3d0e3"/><circle cx="14" cy="22" r="9" fill="#c3d0e3"/><circle cx="30" cy="28" r="6" fill="#e8d28a"/></g></svg>';
-const flowers = [];
-(function spawnFlowers() {
-  if (window.innerWidth < 760) return;
-  const field = document.createElement('div');
-  field.id = 'flower-field';
-  document.body.appendChild(field);
-  const total = 50;
-  const sizes = [12, 16, 20, 24, 28, 34, 40, 48, 56];
-  const docHeight = Math.max(document.body.scrollHeight, window.innerHeight * 7);
-  for (let i = 0; i < total; i++) {
-    const f = document.createElement('div');
-    f.className = 'flower';
-    const size = sizes[Math.floor(Math.random() * sizes.length)];
-    const op = (0.32 + Math.random() * 0.43).toFixed(2);
-    const baseRot = (Math.random() * 60 - 30).toFixed(1);
-    const topPx = ((i + Math.random()) / total) * docHeight;
-    const side = Math.random() < 0.5 ? 'left' : 'right';
-    const horizPct = (Math.random() * 14).toFixed(2);
-    const drift = ((0.06 + Math.random() * 0.32) * (Math.random() < 0.5 ? -1 : 1)).toFixed(3);
-    f.style.position = 'absolute';
-    f.style.top = topPx + 'px';
-    f.style[side] = horizPct + '%';
-    f.style.width = size + 'px';
-    f.style.opacity = op;
-    f.style.transform = `rotate(${baseRot}deg)`;
-    f.dataset.drift = drift;
-    f.dataset.baseRot = baseRot;
-    f.innerHTML = FLOWER_SVG;
-    field.appendChild(f);
-    flowers.push(f);
-  }
-})();
 
 // ── CONTINUOUS PHOTO-FRAME WIGGLE — gentle ambient sway + extra scroll-tied wiggle,
 //    counter-translates hero-right's drift so the frame stays anchored on screen
