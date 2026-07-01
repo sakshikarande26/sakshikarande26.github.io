@@ -286,7 +286,7 @@ a:focus-visible, button:focus-visible, .dotnav a:focus-visible { outline:2px sol
   .xp-logo { width:64px; height:64px; }
 }
 /* justified body copy */
-.about-text, .proj-desc, .pub-venue, .edu-coursework {
+.about-text, .pub-venue, .edu-coursework {
   text-align:justify; -webkit-hyphens:none; hyphens:none; word-break:normal; overflow-wrap:normal;
 }
 .proj-link:hover, .pub-link:hover { text-decoration:underline; text-underline-offset:4px; }
@@ -847,11 +847,32 @@ a:focus-visible, button:focus-visible, .dotnav a:focus-visible { outline:2px sol
       src.start(t);
     }catch(e){}
   }
+  // swoosh — noise sweep for "send"
+  function swoosh(){
+    try{
+      const c = ac(), t = c.currentTime, dur = 0.34;
+      const n = Math.floor(c.sampleRate * dur);
+      const buf = c.createBuffer(1, n, c.sampleRate), d = buf.getChannelData(0);
+      for (let i = 0; i < n; i++) d[i] = (Math.random()*2 - 1) * Math.pow(1 - i/n, 1.2);
+      const src = c.createBufferSource(); src.buffer = buf;
+      const bp = c.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 0.9;
+      bp.frequency.setValueAtTime(480, t);
+      bp.frequency.exponentialRampToValueAtTime(3600, t + 0.17);
+      bp.frequency.exponentialRampToValueAtTime(700, t + dur);
+      const g = c.createGain();
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.2, t + 0.04);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      src.connect(bp).connect(g).connect(c.destination);
+      src.start(t);
+    }catch(e){}
+  }
   document.addEventListener('pointerdown', click, true);
   const form = document.getElementById('contactForm');
   if (form){
     const skip = { Shift:1, Control:1, Alt:1, Meta:1, Tab:1, CapsLock:1, ArrowLeft:1, ArrowRight:1, ArrowUp:1, ArrowDown:1, Escape:1 };
     form.addEventListener('keydown', (e) => { if (!skip[e.key] && !e.metaKey && !e.ctrlKey && !e.altKey) type(); });
+    form.addEventListener('submit', swoosh);
   }
 })();
 
