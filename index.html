@@ -301,6 +301,8 @@ a:focus-visible, button:focus-visible, .dotnav a:focus-visible { outline:2px sol
 }
 .proj-card:hover { border-color:var(--accent); transform:translateY(-3px); }
 .proj-main { display:flex; flex-direction:column; }
+.proj-right { display:flex; flex-direction:column; gap:16px; }
+.proj-hook { font-size:18px; line-height:1.5; color:var(--text); font-weight:500; letter-spacing:-0.01em; }
 .proj-head { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
 .proj-icon {
   width:46px; height:46px; min-width:46px; border-radius:12px;
@@ -365,10 +367,10 @@ a:focus-visible, button:focus-visible, .dotnav a:focus-visible { outline:2px sol
 .contact-form input::placeholder, .contact-form textarea::placeholder { color:var(--muted); }
 .contact-form input:focus, .contact-form textarea:focus { border-color:var(--accent); }
 .contact-form textarea { resize:vertical; min-height:150px; }
-.contact-actions { display:flex; flex-direction:column; align-items:stretch; gap:12px; margin-top:4px; }
+.contact-actions { display:flex; align-items:center; justify-content:center; gap:16px; margin-top:6px; }
 .contact-btn {
-  width:100%; font-family:inherit; font-size:16px; font-weight:600;
-  padding:15px 32px; border-radius:12px; text-align:center;
+  font-family:inherit; font-size:16px; font-weight:600;
+  padding:14px 30px; border-radius:12px;
   background:var(--text); color:var(--bg); border:1px solid var(--text);
   cursor:pointer; transition:opacity 0.18s ease, transform 0.18s ease;
 }
@@ -581,36 +583,42 @@ a:focus-visible, button:focus-visible, .dotnav a:focus-visible { outline:2px sol
 
       <article class="proj-card reveal">
         <div class="proj-main">
-          <div class="proj-head"><span class="proj-icon">🔐</span><span class="proj-meta">Open Source · Agent Infra · May 2026 - Present</span></div>
-          <h3 class="proj-name">mcp-access-gateway - Access Control &amp; Audit for AI Agents</h3>
+          <div class="proj-head"><span class="proj-icon">🔐</span><span class="proj-meta">Open Source · AI Infra · May 2026 - Present</span></div>
+          <h3 class="proj-name">Agent Access Gateway</h3>
           <div class="proj-techs"><span class="ptag">TypeScript</span><span class="ptag">MCP SDK</span><span class="ptag">Fastify</span><span class="ptag">Postgres</span><span class="ptag">Redis</span><span class="ptag">Docker</span><span class="ptag">Apache 2.0</span></div>
           <div class="proj-links">
             <a href="#" class="proj-link">View on GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
           </div>
         </div>
-        <div class="proj-desc"><ul>
-            <li>Transparent MCP proxy between AI agents and their tools - an MCP server to the agent, an MCP client to downstream servers - with a single enforcement seam for identity, policy, vault, and audit</li>
-            <li>Hierarchical policy engine (org → team → agent, most-specific-wins, org-deny as hard ceiling) resolved against an in-memory cache for sub-10ms checks on the hot path, with ~1s live revocation via Redis pub/sub</li>
-            <li>Credential vault keeping real downstream secrets server-side and injecting them only on authorized calls, so agents never hold standing credentials</li>
-            <li>Fail-closed, stateless, horizontally scalable; supports both stdio and HTTP/SSE downstream MCP servers through one connector</li>
+        <div class="proj-right">
+          <p class="proj-hook">Most agent frameworks let an LLM call a tool with the same trust as the human who wrote the code. This closes that gap.</p>
+          <div class="proj-desc"><ul>
+            <li>Transparent proxy enforcing identity, policy, credential, and audit checks at a single seam between agents and every downstream tool</li>
+            <li>Hierarchical policy engine (org → team → agent) with most-specific-wins resolution, cached in-memory for sub-10ms checks and ~1s live revocation via Redis pub/sub</li>
+            <li>Server-side credential vault eliminates standing secrets entirely; credentials get injected only at the moment of an authorized call, never held by the agent</li>
+            <li>Fail-closed, stateless, horizontally scalable proxy supporting 2 downstream transport types (stdio, HTTP/SSE) through one connector</li>
           </ul></div>
+        </div>
       </article>
 
       <article class="proj-card reveal">
         <div class="proj-main">
-          <div class="proj-head"><span class="proj-icon">🗺️</span><span class="proj-meta">Full Stack · SWE · Feb 2026 - Apr 2026</span></div>
-          <h3 class="proj-name">Spaces - UMass Amherst</h3>
+          <div class="proj-head"><span class="proj-icon">🗺️</span><span class="proj-meta">Full Stack · Feb 2026 - Apr 2026</span></div>
+          <h3 class="proj-name">OpenSeat: Find Study Spaces for UMass Amherst</h3>
           <div class="proj-techs"><span class="ptag">React</span><span class="ptag">TypeScript</span><span class="ptag">Supabase</span><span class="ptag">PostgreSQL</span><span class="ptag">Tailwind CSS</span><span class="ptag">Leaflet</span></div>
           <div class="proj-links">
             <a href="https://github.com/sakshikarande26/Campus-FreeSpace-Map" target="_blank" rel="noopener" class="proj-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>View on GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
           </div>
         </div>
-        <div class="proj-desc"><ul>
-            <li>Built a real-time campus study space finder for 30,000+ UMass Amherst students, surfacing live occupancy across free common areas and reservable rooms on an interactive Leaflet map</li>
-            <li>Engineered a three-layer occupancy architecture - seeded heuristics as a cold-start baseline, crowd-sourced check-ins as a real-time override, and Supabase Realtime broadcasting row changes to all connected clients within seconds, eliminating the need for a WebSocket server</li>
-            <li>Designed an 8-table PostgreSQL schema with Row Level Security on every table, DB-enforced constraints (one active check-in per user via partial unique index), and pg_cron auto-expiry jobs - ensuring data integrity with zero manual intervention</li>
-            <li>Implemented a two-tier space model (free walk-in vs. reservable) with a 10-minute no-show auto-release rule and an extensible multi-university architecture designed for Five College Consortium expansion</li>
+        <div class="proj-right">
+          <p class="proj-hook">Study spaces fill up the moment class ends. This shows students what's actually open, in real time, with zero setup.</p>
+          <div class="proj-desc"><ul>
+            <li>Real-time occupancy map for 30,000+ UMass Amherst students across free common areas and reservable rooms</li>
+            <li>Three-layer occupancy model (seeded heuristics, crowd-sourced check-ins, Supabase Realtime) syncs all clients within seconds with no WebSocket server</li>
+            <li>8-table PostgreSQL schema with Row Level Security on every table and pg_cron auto-expiry jobs, zero manual intervention</li>
+            <li>Two-tier booking model with 10-minute no-show auto-release, architected for Five College Consortium expansion</li>
           </ul></div>
+        </div>
       </article>
 
       <article class="proj-card reveal">
