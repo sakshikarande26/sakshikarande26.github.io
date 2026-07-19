@@ -414,6 +414,179 @@ a:focus-visible, button:focus-visible, .dotnav a:focus-visible { outline:2px sol
   .icon-btn { width:40px; height:40px; }
   .availability { font-size:13.5px; }
 }
+
+/* ══ VIEW TOGGLE (Portfolio / Explore) ══ */
+.view-toggle {
+  position:fixed; top:18px; left:50%; transform:translateX(-50%); z-index:50;
+  display:inline-flex; align-items:center; gap:2px; padding:4px;
+  border:1px solid var(--border); border-radius:999px;
+  background:color-mix(in srgb, var(--surface) 80%, transparent);
+  backdrop-filter:saturate(160%) blur(8px); -webkit-backdrop-filter:saturate(160%) blur(8px);
+}
+.view-toggle button {
+  position:relative; z-index:1; border:0; background:none; cursor:pointer;
+  font:inherit; font-size:12.5px; font-weight:600; letter-spacing:0.02em;
+  color:var(--muted); padding:6px 16px; border-radius:999px;
+  transition:color 0.22s ease;
+}
+.view-toggle button:hover { color:var(--text); }
+.view-toggle button.active { color:var(--bg); }
+.view-toggle .vt-pill {
+  position:absolute; top:4px; left:4px; z-index:0; height:calc(100% - 8px);
+  border-radius:999px; background:var(--accent);
+  transition:transform 0.32s cubic-bezier(0.2,0.8,0.2,1), width 0.32s cubic-bezier(0.2,0.8,0.2,1);
+}
+@media (prefers-reduced-motion: reduce){ .view-toggle .vt-pill, .view-toggle button { transition:none; } }
+@media (max-width:600px){ .view-toggle { top:14px; } .view-toggle button { padding:6px 13px; font-size:12px; } }
+
+/* ══ VIEWS ══ */
+#exploreView[hidden], #portfolioView[hidden] { display:none; }
+.view-fade { animation:viewfade 0.4s ease both; }
+@keyframes viewfade { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+@media (prefers-reduced-motion: reduce){ .view-fade { animation:none; } }
+body.explore-active .dotnav { opacity:0; pointer-events:none; }
+
+/* ══ EXPLORE PAGE ══ */
+.explore-wrap {
+  min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:120px 24px 80px; text-align:center;
+}
+.explore-kicker {
+  font-size:11px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:12px;
+}
+.explore-heading { font-size:clamp(26px,5vw,40px); font-weight:700; letter-spacing:-0.02em; margin-bottom:8px; }
+.explore-sub { color:var(--muted); font-size:15px; max-width:460px; margin:0 auto 40px; line-height:1.65; }
+
+/* ══ SPOTIFY-STYLE SONG CARD ══ */
+.song-card {
+  width:100%; max-width:460px; margin:0 auto; text-align:left;
+  border-radius:12px; overflow:hidden; color:#fff;
+  background:linear-gradient(150deg, #46505f 0%, #2b3038 55%, #1f232a 100%);
+  box-shadow:0 10px 40px rgba(0,0,0,0.4);
+  font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+.song-body { display:flex; gap:18px; padding:20px; }
+.song-art {
+  flex:0 0 44%; aspect-ratio:1/1; border-radius:6px; overflow:hidden;
+  box-shadow:0 4px 18px rgba(0,0,0,0.45); background:#111;
+}
+.song-art img { width:100%; height:100%; object-fit:cover; }
+.song-info { flex:1; min-width:0; display:flex; flex-direction:column; }
+.song-logo { align-self:flex-end; }
+.song-logo svg { width:26px; height:26px; display:block; }
+.song-title {
+  font-size:20px; font-weight:700; line-height:1.2; margin-top:14px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.song-meta { display:flex; align-items:center; gap:7px; margin-top:8px; min-width:0; }
+.song-badge {
+  flex:none; font-size:10px; font-weight:700; letter-spacing:0.04em;
+  padding:2px 6px; border-radius:3px; background:rgba(255,255,255,0.18); color:#fff;
+}
+.song-e {
+  flex:none; font-size:10px; font-weight:700; width:16px; height:16px; border-radius:3px;
+  background:rgba(255,255,255,0.55); color:#1f232a; display:inline-flex; align-items:center; justify-content:center;
+}
+.song-artists { font-size:13px; color:rgba(255,255,255,0.72); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.song-save {
+  display:inline-flex; align-items:center; gap:9px; margin-top:16px;
+  font-size:13px; font-weight:600; color:rgba(255,255,255,0.85); width:fit-content;
+  transition:color 0.18s ease;
+}
+.song-save:hover { color:#fff; }
+.song-save svg { width:19px; height:19px; }
+.song-controls { margin-top:auto; padding-top:16px; display:flex; align-items:center; justify-content:flex-end; gap:16px; }
+.song-more {
+  background:none; border:0; cursor:pointer; color:rgba(255,255,255,0.7); padding:4px;
+  display:inline-flex; transition:color 0.18s ease;
+}
+.song-more:hover { color:#fff; }
+.song-more svg { width:22px; height:22px; }
+.song-play {
+  width:52px; height:52px; border-radius:50%; border:0; cursor:pointer;
+  background:#fff; color:#1f232a; display:inline-flex; align-items:center; justify-content:center;
+  box-shadow:0 2px 10px rgba(0,0,0,0.35); transition:transform 0.15s ease;
+}
+.song-play:hover { transform:scale(1.06); }
+.song-play svg { width:22px; height:22px; }
+.song-play .i-pause { display:none; }
+.song-card.playing .song-play .i-play { display:none; }
+.song-card.playing .song-play .i-pause { display:block; }
+.song-progress { height:4px; background:rgba(255,255,255,0.18); position:relative; }
+.song-progress-fill { position:absolute; top:0; left:0; height:100%; width:0; background:#1ed760; transition:width 0.15s linear; }
+@media (prefers-reduced-motion: reduce){ .song-progress-fill, .song-play { transition:none; } }
+@media (max-width:520px){
+  .song-card { position:relative; }
+  .song-body { flex-direction:column; }
+  .song-art { flex:none; width:56%; max-width:200px; }
+  .song-logo { position:absolute; top:20px; right:20px; }
+  .song-title { margin-top:4px; white-space:normal; font-size:19px; }
+  .song-artists { white-space:normal; overflow:visible; }
+  .song-controls { padding-top:20px; }
+}
+
+/* ══ EXPLORE HINT (mild nudge toward the toggle) ══ */
+.view-hint {
+  position:fixed; top:62px; left:50%; transform:translateX(-4%) translateY(-6px); z-index:49;
+  max-width:230px; padding:8px 13px; border-radius:13px;
+  font-size:12px; line-height:1.45; color:var(--muted); text-align:left;
+  background:color-mix(in srgb, var(--surface) 88%, transparent);
+  border:1px solid var(--border); box-shadow:var(--shadow);
+  backdrop-filter:saturate(160%) blur(8px); -webkit-backdrop-filter:saturate(160%) blur(8px);
+  opacity:0; pointer-events:none;
+  transition:opacity 0.45s ease, transform 0.45s ease;
+}
+.view-hint::before {
+  content:''; position:absolute; top:-6px; left:34px; width:11px; height:11px;
+  background:inherit; border-left:1px solid var(--border); border-top:1px solid var(--border);
+  transform:rotate(45deg); backdrop-filter:inherit;
+}
+.view-hint.show { opacity:1; transform:translateX(-4%) translateY(0); animation:hintbob 2.8s ease-in-out 0.6s infinite; }
+.view-hint b { color:var(--text); font-weight:600; }
+@keyframes hintbob { 0%,100%{ margin-top:0; } 50%{ margin-top:-4px; } }
+@media (prefers-reduced-motion: reduce){ .view-hint.show { animation:none; } .view-hint { transition:opacity 0.2s ease; } }
+@media (max-width:600px){ .view-hint { top:56px; font-size:11.5px; max-width:210px; } }
+
+/* ══ NOW-PLAYING FLOATER (persistent mini-player) ══ */
+.np-float {
+  position:fixed; left:22px; bottom:22px; z-index:55;
+  display:flex; align-items:center; gap:11px; padding:9px 12px 9px 9px;
+  border-radius:14px; border:1px solid var(--border);
+  background:color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter:saturate(160%) blur(10px); -webkit-backdrop-filter:saturate(160%) blur(10px);
+  box-shadow:var(--shadow);
+  animation:npin 0.35s cubic-bezier(0.2,0.8,0.2,1) both;
+}
+.np-float[hidden]{ display:none; }
+@keyframes npin { from{ opacity:0; transform:translateY(10px) scale(0.96); } to{ opacity:1; transform:none; } }
+.np-art { width:38px; height:38px; border-radius:8px; object-fit:cover; flex:none; box-shadow:0 2px 8px rgba(0,0,0,0.3); }
+.np-eq { display:flex; align-items:flex-end; gap:2.5px; height:20px; width:20px; }
+.np-eq span { flex:1; background:#1ed760; border-radius:1px; height:30%; }
+.np-float.playing .np-eq span { animation:npeq 0.9s ease-in-out infinite; }
+.np-float.playing .np-eq span:nth-child(2){ animation-delay:0.25s; }
+.np-float.playing .np-eq span:nth-child(3){ animation-delay:0.5s; }
+.np-float.playing .np-eq span:nth-child(4){ animation-delay:0.15s; }
+@keyframes npeq { 0%,100%{ height:25%; } 50%{ height:95%; } }
+@media (prefers-reduced-motion: reduce){ .np-float, .np-float.playing .np-eq span { animation:none; } .np-float.playing .np-eq span{ height:60%; } }
+.np-toggle {
+  width:34px; height:34px; border-radius:50%; border:0; cursor:pointer; flex:none;
+  background:var(--accent); color:var(--bg);
+  display:inline-flex; align-items:center; justify-content:center; transition:transform 0.15s ease;
+}
+.np-toggle:hover { transform:scale(1.07); }
+.np-toggle svg { width:16px; height:16px; }
+.np-toggle .i-pause { display:none; }
+.np-float.playing .np-toggle .i-play { display:none; }
+.np-float.playing .np-toggle .i-pause { display:block; }
+.np-close {
+  position:absolute; top:-8px; right:-8px; width:20px; height:20px; border-radius:50%;
+  border:1px solid var(--border); background:var(--surface); color:var(--muted); cursor:pointer;
+  font-size:13px; line-height:1; display:inline-flex; align-items:center; justify-content:center;
+  transition:color 0.15s ease, border-color 0.15s ease;
+}
+.np-close:hover { color:var(--text); border-color:var(--text); }
+@media (max-width:600px){ .np-float { left:16px; bottom:16px; } }
 </style>
 </head>
 <body>
@@ -423,6 +596,17 @@ a:focus-visible, button:focus-visible, .dotnav a:focus-visible { outline:2px sol
   <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
   <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
 </button>
+
+<!-- ══ VIEW TOGGLE (Portfolio / Explore) ══ -->
+<div class="view-toggle" role="tablist" aria-label="Switch view">
+  <span class="vt-pill" aria-hidden="true"></span>
+  <button type="button" id="viewPortfolio" role="tab" aria-selected="true" class="active">Portfolio</button>
+  <button type="button" id="viewExplore" role="tab" aria-selected="false">Explore</button>
+</div>
+<div class="view-hint" id="viewHint" aria-hidden="true">Peek at <b>Explore</b> to hear what's on repeat while you browse <span>🎧</span> just for fun</div>
+
+<!-- ══════════════ PORTFOLIO VIEW ══════════════ -->
+<main id="portfolioView">
 
 <!-- ══ HERO ══ -->
 <nav class="dotnav" aria-label="Jump to section">
@@ -779,6 +963,62 @@ a:focus-visible, button:focus-visible, .dotnav a:focus-visible { outline:2px sol
   </div>
 </footer>
 
+</main><!-- /#portfolioView -->
+
+<!-- ══════════════ EXPLORE VIEW ══════════════ -->
+<section id="exploreView" hidden aria-label="Explore">
+  <div class="explore-wrap">
+    <div class="explore-kicker">Off the clock</div>
+    <h2 class="explore-heading">Currently on repeat</h2>
+    <p class="explore-sub">A little peek outside the resume. Here's what's been stuck in my head lately. Hit play for a taste.</p>
+
+    <div class="song-card" id="songCard">
+      <div class="song-body">
+        <div class="song-art">
+          <img src="assets/arms-around-you-cover.jpg" alt="Arms Around You album cover" width="640" height="640" loading="lazy">
+        </div>
+        <div class="song-info">
+          <a class="song-logo" href="https://open.spotify.com/track/2LskIZrCeLxRvCiGP8gxlh" target="_blank" rel="noopener" aria-label="Open in Spotify">
+            <svg viewBox="0 0 24 24" fill="#1ed760"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.52 17.34c-.24.36-.66.48-1.02.24-2.82-1.74-6.36-2.1-10.56-1.14-.42.12-.78-.18-.9-.54-.12-.42.18-.78.54-.9 4.56-1.02 8.52-.6 11.64 1.32.42.18.48.66.3 1.02zm1.44-3.3c-.3.42-.84.6-1.26.3-3.24-1.98-8.16-2.58-11.94-1.38-.48.12-1.02-.12-1.14-.6-.12-.48.12-1.02.6-1.14 4.38-1.32 9.78-.66 13.5 1.62.36.18.54.78.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.1 9.3c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.32-1.32 11.4-1.02 15.9 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/></svg>
+          </a>
+          <div class="song-title">Arms Around You (feat. Maluma &amp; Swae Lee)</div>
+          <div class="song-meta">
+            <span class="song-badge">Preview</span>
+            <span class="song-e" title="Explicit">E</span>
+            <span class="song-artists">XXXTENTACION, Lil Pump, Swae Lee</span>
+          </div>
+          <a class="song-save" href="https://open.spotify.com/track/2LskIZrCeLxRvCiGP8gxlh" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            Save on Spotify
+          </a>
+          <div class="song-controls">
+            <a class="song-more" href="https://open.spotify.com/track/2LskIZrCeLxRvCiGP8gxlh" target="_blank" rel="noopener" aria-label="More options">
+              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
+            </a>
+            <button type="button" class="song-play" id="songPlay" aria-label="Play preview">
+              <svg class="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="i-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="song-progress"><div class="song-progress-fill" id="songProgress"></div></div>
+      <audio id="songAudio" preload="metadata" src="assets/fav-song.mp3"></audio>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NOW-PLAYING FLOATER (appears after first play; persists; × to dismiss) ══ -->
+<div class="np-float" id="npFloat" hidden aria-label="Now playing">
+  <button class="np-close" id="npClose" type="button" aria-label="Dismiss player">&times;</button>
+  <img class="np-art" src="assets/arms-around-you-cover.jpg" alt="" width="38" height="38">
+  <div class="np-eq" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  <button class="np-toggle" id="npToggle" type="button" aria-label="Pause">
+    <svg class="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="i-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+  </button>
+</div>
+
 <script>
 // ── THEME TOGGLE
 (function(){
@@ -788,6 +1028,116 @@ a:focus-visible, button:focus-visible, .dotnav a:focus-visible { outline:2px sol
     document.documentElement.setAttribute('data-theme', next);
     try { localStorage.setItem('theme', next); } catch(e) {}
   });
+})();
+
+// ── VIEW TOGGLE (Portfolio / Explore) + SONG PLAYER
+(function(){
+  const portfolio = document.getElementById('portfolioView');
+  const explore   = document.getElementById('exploreView');
+  const btnP      = document.getElementById('viewPortfolio');
+  const btnE      = document.getElementById('viewExplore');
+  const pill      = document.querySelector('.view-toggle .vt-pill');
+  const audio     = document.getElementById('songAudio');
+  const card      = document.getElementById('songCard');
+  const playBtn   = document.getElementById('songPlay');
+  const progress  = document.getElementById('songProgress');
+  const hint      = document.getElementById('viewHint');
+  const npFloat   = document.getElementById('npFloat');
+  const npToggle  = document.getElementById('npToggle');
+  const npClose   = document.getElementById('npClose');
+  if (!portfolio || !explore) return;
+
+  const START = 63, END = 108; // favourite part: 1:03 → 1:48 (45s)
+  let npDismissed = false;
+
+  // mild Explore hint: a brief nudge that shows for ~5s then fades (not persistent)
+  let exploreSeen = false;
+  try { exploreSeen = localStorage.getItem('exploreSeen') === '1'; } catch(e) {}
+  let hintDone = exploreSeen, hintTimer;
+  function showHint(){
+    if (hintDone || !hint || !explore.hidden) return;
+    hint.classList.add('show');
+    clearTimeout(hintTimer);
+    hintTimer = setTimeout(() => { hint.classList.remove('show'); hintDone = true; }, 5000);
+  }
+  function hideHint(){ if (hint) hint.classList.remove('show'); clearTimeout(hintTimer); }
+
+  function movePill(active){
+    if (!pill) return;
+    pill.style.width = active.offsetWidth + 'px';
+    pill.style.transform = 'translateX(' + (active.offsetLeft - 4) + 'px)';
+  }
+  function setView(view, animate){
+    const toExplore = view === 'explore';
+    // toggle active states
+    btnP.classList.toggle('active', !toExplore); btnP.setAttribute('aria-selected', String(!toExplore));
+    btnE.classList.toggle('active', toExplore);  btnE.setAttribute('aria-selected', String(toExplore));
+    document.body.classList.toggle('explore-active', toExplore);
+    // swap panels
+    portfolio.hidden = toExplore;
+    explore.hidden = !toExplore;
+    const shown = toExplore ? explore : portfolio;
+    if (animate){ shown.classList.remove('view-fade'); void shown.offsetWidth; shown.classList.add('view-fade'); }
+    // NOTE: playback intentionally keeps going across views — the song only
+    // stops on manual pause or when the 45s window ends, so it can play while
+    // the visitor browses the portfolio.
+    if (toExplore){ hideHint(); hintDone = true; if (!exploreSeen){ exploreSeen = true; try { localStorage.setItem('exploreSeen', '1'); } catch(e) {} } }
+    movePill(toExplore ? btnE : btnP);
+    window.scrollTo(0, 0);
+    try { localStorage.setItem('view', view); } catch(e) {}
+  }
+
+  btnP.addEventListener('click', () => setView('portfolio', true));
+  btnE.addEventListener('click', () => setView('explore', true));
+  window.addEventListener('resize', () => movePill(explore.hidden ? btnP : btnE));
+
+  // restore last view (default portfolio)
+  let saved = 'portfolio';
+  try { saved = localStorage.getItem('view') || 'portfolio'; } catch(e) {}
+  setView(saved === 'explore' ? 'explore' : 'portfolio', false);
+  // pill needs a layout pass before first measure
+  requestAnimationFrame(() => movePill(explore.hidden ? btnP : btnE));
+  // brief Explore nudge shortly after load (portfolio view only)
+  if (explore.hidden) setTimeout(showHint, 1200);
+
+  // ── Song player: plays the favourite 45s window (1:03 → 1:48) of the full track.
+  // Fallback: if the file is shorter than END (i.e. a pre-cut clip), just play it start→end.
+  if (audio && card && playBtn){
+    function bounds(){
+      const d = audio.duration;
+      if (d && isFinite(d) && d <= END) return { s: 0, e: Math.min(d, END - START) };
+      return { s: START, e: END };
+    }
+    function seekStart(){ const b = bounds(); if (audio.currentTime < b.s || audio.currentTime >= b.e - 0.05) audio.currentTime = b.s; }
+    // fromCard = an explicit new play from the Explore card → un-dismiss the floater
+    function togglePlay(fromCard){
+      if (audio.paused){ if (fromCard) npDismissed = false; seekStart(); audio.play().catch(()=>{}); }
+      else audio.pause();
+    }
+    playBtn.addEventListener('click', () => togglePlay(true));
+    if (npToggle) npToggle.addEventListener('click', () => togglePlay(false));
+    // × stops the song immediately and dismisses the floater; it returns on the
+    // next play from the Explore card.
+    if (npClose) npClose.addEventListener('click', () => { npDismissed = true; audio.pause(); if (npFloat) npFloat.hidden = true; });
+
+    audio.addEventListener('play', () => {
+      card.classList.add('playing');  playBtn.setAttribute('aria-label','Pause preview');
+      if (npFloat && !npDismissed){ npFloat.hidden = false; npFloat.classList.add('playing'); }
+      if (npToggle) npToggle.setAttribute('aria-label','Pause');
+    });
+    audio.addEventListener('pause', () => {
+      card.classList.remove('playing'); playBtn.setAttribute('aria-label','Play preview');
+      if (npFloat) npFloat.classList.remove('playing');   // stays visible, equalizer freezes
+      if (npToggle) npToggle.setAttribute('aria-label','Play');
+    });
+    audio.addEventListener('timeupdate', () => {
+      const b = bounds();
+      if (audio.currentTime >= b.e){ audio.pause(); audio.currentTime = b.s; if (progress) progress.style.width = '0%'; return; }
+      const p = Math.max(0, Math.min(1, (audio.currentTime - b.s) / (b.e - b.s)));
+      if (progress) progress.style.width = (p * 100) + '%';
+    });
+    audio.addEventListener('ended', () => { const b = bounds(); audio.currentTime = b.s; if (progress) progress.style.width = '0%'; });
+  }
 })();
 
 // ── REVEAL ON SCROLL
