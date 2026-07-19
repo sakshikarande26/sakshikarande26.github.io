@@ -529,7 +529,8 @@ body.explore-active .dotnav { opacity:0; pointer-events:none; }
 /* ══ EXPLORE HINT (mild nudge toward the toggle) ══ */
 .view-hint {
   position:fixed; top:62px; left:50%; transform:translateX(-4%) translateY(-6px); z-index:49;
-  max-width:230px; padding:8px 13px; border-radius:13px;
+  width:max-content; max-width:min(86vw, 300px); white-space:nowrap;
+  padding:8px 13px; border-radius:13px;
   font-size:12px; line-height:1.45; color:var(--muted); text-align:left;
   background:color-mix(in srgb, var(--surface) 88%, transparent);
   border:1px solid var(--border); box-shadow:var(--shadow);
@@ -546,7 +547,7 @@ body.explore-active .dotnav { opacity:0; pointer-events:none; }
 .view-hint b { color:var(--text); font-weight:600; }
 @keyframes hintbob { 0%,100%{ margin-top:0; } 50%{ margin-top:-4px; } }
 @media (prefers-reduced-motion: reduce){ .view-hint.show { animation:none; } .view-hint { transition:opacity 0.2s ease; } }
-@media (max-width:600px){ .view-hint { top:56px; font-size:11.5px; max-width:210px; } }
+@media (max-width:600px){ .view-hint { top:56px; font-size:11.5px; } }
 
 /* ══ NOW-PLAYING FLOATER (persistent mini-player) ══ */
 .np-float {
@@ -603,7 +604,7 @@ body.explore-active .dotnav { opacity:0; pointer-events:none; }
   <button type="button" id="viewPortfolio" role="tab" aria-selected="true" class="active">Portfolio</button>
   <button type="button" id="viewExplore" role="tab" aria-selected="false">Explore</button>
 </div>
-<div class="view-hint" id="viewHint" aria-hidden="true">Peek at <b>Explore</b> to hear what's on repeat while you browse <span>🎧</span> just for fun</div>
+<div class="view-hint" id="viewHint" aria-hidden="true">Hear what's on repeat <span>🎧</span></div>
 
 <!-- ══════════════ PORTFOLIO VIEW ══════════════ -->
 <main id="portfolioView">
@@ -1047,18 +1048,15 @@ body.explore-active .dotnav { opacity:0; pointer-events:none; }
   const npClose   = document.getElementById('npClose');
   if (!portfolio || !explore) return;
 
-  const START = 63, END = 108; // favourite part: 1:03 → 1:48 (45s)
   let npDismissed = false;
 
-  // mild Explore hint: a brief nudge that shows for ~5s then fades (not persistent)
-  let exploreSeen = false;
-  try { exploreSeen = localStorage.getItem('exploreSeen') === '1'; } catch(e) {}
-  let hintDone = exploreSeen, hintTimer;
+  // mild Explore hint: a nudge that shows on each load, stays ~5 min, then fades
+  let hintDone = false, hintTimer;
   function showHint(){
     if (hintDone || !hint || !explore.hidden) return;
     hint.classList.add('show');
     clearTimeout(hintTimer);
-    hintTimer = setTimeout(() => { hint.classList.remove('show'); hintDone = true; }, 5000);
+    hintTimer = setTimeout(() => { hint.classList.remove('show'); hintDone = true; }, 300000);
   }
   function hideHint(){ if (hint) hint.classList.remove('show'); clearTimeout(hintTimer); }
 
@@ -1081,7 +1079,7 @@ body.explore-active .dotnav { opacity:0; pointer-events:none; }
     // NOTE: playback intentionally keeps going across views — the song only
     // stops on manual pause or when the 45s window ends, so it can play while
     // the visitor browses the portfolio.
-    if (toExplore){ hideHint(); hintDone = true; if (!exploreSeen){ exploreSeen = true; try { localStorage.setItem('exploreSeen', '1'); } catch(e) {} } }
+    if (toExplore){ hideHint(); hintDone = true; }
     movePill(toExplore ? btnE : btnP);
     window.scrollTo(0, 0);
     try { localStorage.setItem('view', view); } catch(e) {}
@@ -1100,18 +1098,12 @@ body.explore-active .dotnav { opacity:0; pointer-events:none; }
   // brief Explore nudge shortly after load (portfolio view only)
   if (explore.hidden) setTimeout(showHint, 1200);
 
-  // ── Song player: plays the favourite 45s window (1:03 → 1:48) of the full track.
-  // Fallback: if the file is shorter than END (i.e. a pre-cut clip), just play it start→end.
+  // ── Song player: plays the ~18s preview from start to end. Pausing keeps the
+  // position; resuming continues; on natural end it resets to the start.
   if (audio && card && playBtn){
-    function bounds(){
-      const d = audio.duration;
-      if (d && isFinite(d) && d <= END) return { s: 0, e: Math.min(d, END - START) };
-      return { s: START, e: END };
-    }
-    function seekStart(){ const b = bounds(); if (audio.currentTime < b.s || audio.currentTime >= b.e - 0.05) audio.currentTime = b.s; }
     // fromCard = an explicit new play from the Explore card → un-dismiss the floater
     function togglePlay(fromCard){
-      if (audio.paused){ if (fromCard) npDismissed = false; seekStart(); audio.play().catch(()=>{}); }
+      if (audio.paused){ if (fromCard) npDismissed = false; audio.play().catch(()=>{}); }
       else audio.pause();
     }
     playBtn.addEventListener('click', () => togglePlay(true));
@@ -1131,12 +1123,10 @@ body.explore-active .dotnav { opacity:0; pointer-events:none; }
       if (npToggle) npToggle.setAttribute('aria-label','Play');
     });
     audio.addEventListener('timeupdate', () => {
-      const b = bounds();
-      if (audio.currentTime >= b.e){ audio.pause(); audio.currentTime = b.s; if (progress) progress.style.width = '0%'; return; }
-      const p = Math.max(0, Math.min(1, (audio.currentTime - b.s) / (b.e - b.s)));
-      if (progress) progress.style.width = (p * 100) + '%';
+      const d = audio.duration;
+      if (progress && d && isFinite(d)) progress.style.width = Math.min(100, (audio.currentTime / d) * 100) + '%';
     });
-    audio.addEventListener('ended', () => { const b = bounds(); audio.currentTime = b.s; if (progress) progress.style.width = '0%'; });
+    audio.addEventListener('ended', () => { audio.currentTime = 0; if (progress) progress.style.width = '0%'; });
   }
 })();
 
