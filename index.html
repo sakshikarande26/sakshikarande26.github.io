@@ -700,8 +700,7 @@ body.life-active .hero-bg { display:none; }
 <section id="lifeView" hidden aria-label="More">
   <div class="wrap">
     <div class="life-block">
-      <div class="kicker">Outside work</div>
-      <p class="life-note">Deep in a cryptic, conspiratorial Dan Brown novel, journaling now and then, and over-decorating everything I make.</p>
+      <div class="kicker">Coming soon</div>
     </div>
   </div>
 </section>
@@ -894,10 +893,8 @@ body.life-active .hero-bg { display:none; }
     const v = Math.max(-1, Math.min(1, (y - lastY) / 36));
     lastY = y;
     wobble = wobble * 0.5 + v * 0.9;
-    const was = p;
     // contact + footer stay pinned to the bottom of the screen; the extra scroll room below them drives the animation
     p = clamp(((window.innerHeight - stackH) - scene.getBoundingClientRect().top) / extra);
-    if (was < 0.05 && p >= 0.05) document.dispatchEvent(new Event('paper-open'));
     render();
     if (!looping && Math.abs(wobble) > 0.01) { looping = true; requestAnimationFrame(loop); }
   }
@@ -982,46 +979,6 @@ body.life-active .hero-bg { display:none; }
       src.start(t);
     }catch(e){}
   }
-  // paper crumple — dense crackles that thin out, over a soft rustle, played when the footer heart unfolds
-  let lastCrumple = -9;
-  function crumple(){
-    try{
-      const c = ac(), t = c.currentTime;
-      if (c.state !== 'running' || t - lastCrumple < 3) return;
-      lastCrumple = t;
-      const dur = 1.3, out = c.createGain();
-      out.gain.value = 0.9; out.connect(c.destination);
-      // rustle bed: band-passed noise with a swelling-then-fading envelope
-      const bn = Math.floor(c.sampleRate * dur);
-      const bb = c.createBuffer(1, bn, c.sampleRate), bd = bb.getChannelData(0);
-      for (let i = 0; i < bn; i++) bd[i] = Math.random()*2 - 1;
-      const bs = c.createBufferSource(); bs.buffer = bb;
-      const bf = c.createBiquadFilter(); bf.type = 'bandpass'; bf.frequency.value = 3200; bf.Q.value = 0.6;
-      const bg = c.createGain();
-      bg.gain.setValueAtTime(0.0001, t);
-      bg.gain.exponentialRampToValueAtTime(0.05, t + 0.15);
-      bg.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      bs.connect(bf).connect(bg).connect(out);
-      bs.start(t);
-      // crackles: random short ticks, dense early then sparse
-      const count = 46;
-      for (let k = 0; k < count; k++){
-        const at = t + dur * Math.pow(Math.random(), 1.8) * 0.95;
-        const len = 0.006 + Math.random() * 0.016;
-        const n = Math.floor(c.sampleRate * len);
-        const buf = c.createBuffer(1, n, c.sampleRate), d = buf.getChannelData(0);
-        for (let i = 0; i < n; i++) d[i] = (Math.random()*2 - 1) * Math.pow(1 - i/n, 2.4);
-        const src = c.createBufferSource(); src.buffer = buf;
-        const f = c.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = 1800 + Math.random() * 5200; f.Q.value = 0.8 + Math.random() * 1.2;
-        const g = c.createGain(); g.gain.value = (0.12 + Math.random() * 0.3) * (1 - 0.6 * (at - t) / dur);
-        src.connect(f).connect(g).connect(out);
-        src.start(at);
-      }
-    }catch(e){}
-  }
-  document.addEventListener('paper-open', crumple);
-  // browsers only allow sound after a real gesture (scrolling alone doesn't count), so unlock audio on the first one
-  ['pointerdown','keydown','touchstart'].forEach((ev) => document.addEventListener(ev, () => { try{ ac(); }catch(e){} }, { once:true, passive:true, capture:true }));
   document.addEventListener('pointerdown', click, true);
   const form = document.getElementById('contactForm');
   if (form){
