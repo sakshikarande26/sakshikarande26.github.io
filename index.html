@@ -183,7 +183,7 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
 }
 
 /* ══ ABOUT (centered) ══ */
-.about-text { font-size:var(--fs-body); line-height:1.65; letter-spacing:-0.01em; font-weight:500; color:var(--text); max-width:900px; margin:0 auto; text-align:justify !important; hyphens:none; }
+.about-text { font-size:var(--fs-body); line-height:1.65; letter-spacing:-0.01em; font-weight:500; color:var(--text); max-width:900px; margin:0; text-align:left !important; hyphens:none; }
 .about-text p { margin-bottom:18px; }
 .about-text p:last-child { margin-bottom:0; }
 .about-text strong { color:var(--text); font-weight:600; }
@@ -232,9 +232,9 @@ a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline
 .xp-desc li:last-child { margin-bottom:0; }
 .xp-desc li::marker { color:var(--muted); }
 @media (max-width:860px){ .xp-row { grid-template-columns:1fr; gap:10px; } }
-/* justified body copy */
+/* left-aligned body copy */
 .about-text {
-  text-align:justify; -webkit-hyphens:none; hyphens:none; word-break:normal; overflow-wrap:normal;
+  text-align:left; -webkit-hyphens:none; hyphens:none; word-break:normal; overflow-wrap:normal;
 }
 
 /* ══ PROJECTS (simple list) ══ */
@@ -291,10 +291,11 @@ a.pj:hover .pj-name svg { transform:translate(2px,-2px); }
 @media (max-width:860px){ .contact-grid { grid-template-columns:1fr; } }
 @media (max-width:560px){ .contact-form { grid-template-columns:1fr; } .contact-actions { flex-wrap:wrap; } }
 
-/* ══ FOOTER (scroll scene: paper opens into a heart, then the line comes out) ══ */
-.footer { height:280vh; height:280svh; padding:0; }
+/* ══ FOOTER (sits right under Contact, no pinning; scrolling it into view scrubs the paper into a heart, then the line comes out) ══ */
+.end-stack { position:sticky; }
+.footer { padding:0; }
 .footer .footer-stage {
-  position:sticky; top:0; height:100vh; height:100svh;
+  padding-top:clamp(40px,6vw,80px); padding-bottom:clamp(40px,6vw,80px);
   display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
 }
 .footer-mark {
@@ -309,10 +310,6 @@ a.pj:hover .pj-name svg { transform:translate(2px,-2px); }
 .footer-social .icon-btn:hover { background:rgba(var(--ink),0.2); transform:none; color:#fff; }
 .footer-caps { display:flex; justify-content:center; margin-top:clamp(20px,2.5vw,36px); font-size:var(--fs-body); font-weight:500; letter-spacing:0.08em; text-transform:uppercase; line-height:1.5; color:var(--muted); }
 .footer-caps span { display:block; text-align:center; }
-@media (prefers-reduced-motion:reduce){
-  .footer { height:auto; padding:clamp(40px,6vw,80px) 0; }
-  .footer .footer-stage { position:static; height:auto; }
-}
 
 /* ══ REVEAL ON SCROLL ══ */
 .reveal { opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease; }
@@ -337,18 +334,19 @@ a.pj:hover .pj-name svg { transform:translate(2px,-2px); }
 .view-toggle {
   position:fixed; top:18px; right:18px; z-index:60;
   display:inline-flex; align-items:center; gap:0; padding:3px;
-  border:1px solid rgba(244,237,228,0.16); border-radius:999px;
-  background:rgba(12,12,13,0.72); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-  box-shadow:0 4px 18px rgba(0,0,0,0.25);
+  border:1px solid transparent; border-radius:999px;
+  background:transparent; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  opacity:0.45; transition:opacity 0.3s ease, background 0.3s ease, border-color 0.3s ease;
 }
+.view-toggle:hover, .view-toggle:focus-within { opacity:1; background:rgba(12,12,13,0.5); border-color:rgba(244,237,228,0.1); }
 .view-toggle button {
-  border:0; background:none; cursor:pointer; font:inherit; font-size:var(--fs-body); font-weight:600;
-  letter-spacing:0.02em; color:rgba(244,237,228,0.62); padding:4px 14px; border-radius:999px;
+  border:0; background:none; cursor:pointer; font:inherit; font-size:calc(var(--fs-body) * 0.75); font-weight:500;
+  letter-spacing:0.06em; color:rgba(244,237,228,0.7); padding:2px 10px; border-radius:999px;
   transition:color 0.22s ease, background 0.22s ease;
 }
 .view-toggle button:hover { color:#fff; }
-.view-toggle button.active { color:#fff; background:rgba(244,237,228,0.16); }
-@media (max-width:600px){ .view-toggle { top:14px; right:14px; } .view-toggle button { padding:4px 12px; } }
+.view-toggle button.active { color:#fff; background:rgba(244,237,228,0.1); }
+@media (max-width:600px){ .view-toggle { top:14px; right:14px; } .view-toggle button { padding:2px 9px; } }
 #workView[hidden], #lifeView[hidden] { display:none; }
 .view-fade { animation:viewfade 0.4s ease both; }
 @keyframes viewfade { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
@@ -399,12 +397,11 @@ body.life-active .hero-bg { display:none; }
   <img src="assets/hero-background.jpg" alt="" width="2560" height="1440" decoding="async" fetchpriority="high">
 </div>
 
-<!-- (hidden for now, to be worked on later) WORK / LIFE TOGGLE:
+<!-- WORK / MORE TOGGLE -->
 <div class="view-toggle" role="tablist" aria-label="Switch view">
   <button type="button" id="viewWork" role="tab" aria-selected="true" class="active">Work</button>
-  <button type="button" id="viewLife" role="tab" aria-selected="false">Life</button>
+  <button type="button" id="viewLife" role="tab" aria-selected="false">More</button>
 </div>
--->
 
 <!-- ══════════════ WORK VIEW ══════════════ -->
 <main id="workView">
@@ -633,7 +630,9 @@ body.life-active .hero-bg { display:none; }
   </div>
 </section>
 
-<!-- ══ CONTACT ══ -->
+<!-- ══ CONTACT + FOOTER (pinned together while the footer animation is scrubbed by scroll) ══ -->
+<div class="end-scene" id="endScene"><div class="end-stack" id="endStack">
+
 <section class="section" id="contact">
   <div class="wrap contact-grid">
     <div class="contact-intro reveal">
@@ -693,29 +692,22 @@ body.life-active .hero-bg { display:none; }
   </div>
 </footer>
 
+</div></div><!-- /#endScene -->
+
 </main><!-- /#workView -->
 
-<!-- (hidden for now, to be worked on later) LIFE VIEW:
-<section id="lifeView" hidden aria-label="Life">
+<!-- ══════════════ MORE VIEW ══════════════ -->
+<section id="lifeView" hidden aria-label="More">
   <div class="wrap">
     <div class="life-block">
       <div class="kicker">Outside work</div>
-      <p class="life-note">Reading, journaling and aesthetics. (Placeholder, to be written.)</p>
-    </div>
-    <div class="life-block">
-      <div class="kicker">On my mind lately</div>
-      <p class="life-note">What I'm studying, listening to and want to learn next. (Placeholder, to be written.)</p>
-    </div>
-    <div class="life-block">
-      <div class="kicker">Travel</div>
-      <p class="life-note">Short trip notes and photos. (Placeholder, to be written.)</p>
+      <p class="life-note">Deep in a cryptic, conspiratorial Dan Brown novel, journaling now and then, and over-decorating everything I make.</p>
     </div>
   </div>
 </section>
--->
 
 <script>
-// ── WORK / LIFE TOGGLE
+// ── WORK / MORE TOGGLE
 (function(){
   const work = document.getElementById('workView');
   const life = document.getElementById('lifeView');
@@ -731,7 +723,8 @@ body.life-active .hero-bg { display:none; }
     life.hidden = !toLife;
     const shown = toLife ? life : work;
     shown.classList.remove('view-fade'); void shown.offsetWidth; shown.classList.add('view-fade');
-    window.scrollTo(0, 0);
+    window.scrollTo({ top:0, behavior:'instant' });
+    window.dispatchEvent(new Event('resize')); // scenes that measure the layout (hero, footer) re-measure after being hidden
   }
   btnW.addEventListener('click', () => setView('work'));
   btnL.addEventListener('click', () => setView('life'));
@@ -756,6 +749,7 @@ body.life-active .hero-bg { display:none; }
   function update(){
     ticking = false;
     const y = window.scrollY;
+    if (y > endY && bg.style.visibility === 'hidden') return;
     const p = Math.min(1, Math.max(0, (y - startY) / (endY - startY)));
     const eased = p * p * (3 - 2 * p);
     const visible = 1 - eased;
@@ -839,7 +833,7 @@ body.life-active .hero-bg { display:none; }
 })();
 
 // ── FOOTER SCENE: crumpled paper opens into a heart, then "Made with / by Sakshi" slide out, then the links.
-// Everything is scrubbed directly by scroll position, and wobbles with scroll speed.
+// Scrubbed directly by scroll position while Contact + footer stay pinned together, and wobbles with scroll speed.
 (function(){
   const footer = document.getElementById('footer');
   const heart = document.getElementById('paperHeart');
@@ -849,15 +843,16 @@ body.life-active .hero-bg { display:none; }
   const left = document.querySelector('.fm-l');
   const right = document.querySelector('.fm-r');
   const rest = document.getElementById('footerRest');
-  if (!footer || !heart || !disp || !light || !mark || !left || !right || !rest) return;
+  const scene = document.getElementById('endScene'), stack = document.getElementById('endStack');
+  if (!scene || !stack || !footer || !heart || !disp || !light || !mark || !left || !right || !rest) return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const clamp = (v) => Math.min(1, Math.max(0, v));
   const smooth = (t) => t * t * (3 - 2 * t);
   let dHeart = 0, dLeft = 0, dRight = 0, ticking = false;
-  let p = 0, lastY = window.scrollY, wobble = 0, looping = false;
+  let p = 0, stackH = 0, extra = 1, lastY = window.scrollY, wobble = 0, looping = false;
 
   function measure(){
-    heart.style.transform = ''; left.style.transform = ''; right.style.transform = '';
+    heart.style.transform = ''; left.style.transform = ''; right.style.transform = ''; lastKey = '';
     const m = mark.getBoundingClientRect(), h = heart.getBoundingClientRect();
     const l = left.getBoundingClientRect(), r = right.getBoundingClientRect();
     const mid = m.left + m.width / 2, hc = h.left + h.width / 2;
@@ -865,10 +860,17 @@ body.life-active .hero-bg { display:none; }
     dLeft = hc - (l.left + l.width / 2);
     dRight = hc - (r.left + r.width / 2);
   }
+  let lastKey = '', lastA = -1;
   function paint(a, b, c){
+    const key = a.toFixed(3) + b.toFixed(3) + c.toFixed(3) + wobble.toFixed(2);
+    if (key === lastKey) return;
+    lastKey = key;
     const ea = smooth(a), eb = smooth(b), ec = smooth(c);
-    disp.setAttribute('scale', (30 * (1 - ea) + 1.2).toFixed(2));
-    light.setAttribute('surfaceScale', (7 * (1 - ea) + 0.7).toFixed(2));
+    if (a !== lastA) { // the crumple filter is expensive to redraw, so only touch it when the heart is actually changing
+      lastA = a;
+      disp.setAttribute('scale', (30 * (1 - ea) + 1.2).toFixed(2));
+      light.setAttribute('surfaceScale', (7 * (1 - ea) + 0.7).toFixed(2));
+    }
     const size = (0.38 + 0.62 * ea) * (1 + 1.7 * (1 - eb));
     const spin = -200 * (1 - ea) + wobble * 14;
     heart.style.transform = 'translateX(' + (dHeart * (1 - eb)).toFixed(1) + 'px) rotate(' + spin.toFixed(1) + 'deg) scale(' + size.toFixed(3) + ')';
@@ -892,14 +894,21 @@ body.life-active .hero-bg { display:none; }
     const v = Math.max(-1, Math.min(1, (y - lastY) / 36));
     lastY = y;
     wobble = wobble * 0.5 + v * 0.9;
-    const total = Math.max(1, footer.offsetHeight - window.innerHeight);
-    p = clamp(-footer.getBoundingClientRect().top / total);
+    const was = p;
+    // contact + footer stay pinned to the bottom of the screen; the extra scroll room below them drives the animation
+    p = clamp(((window.innerHeight - stackH) - scene.getBoundingClientRect().top) / extra);
+    if (was < 0.05 && p >= 0.05) document.dispatchEvent(new Event('paper-open'));
     render();
     if (!looping && Math.abs(wobble) > 0.01) { looping = true; requestAnimationFrame(loop); }
   }
   function onScroll(){ if (!ticking) { ticking = true; requestAnimationFrame(update); } }
   if (reduce) { paint(1, 1, 1); return; }
-  function relayout(){ measure(); update(); }
+  function relayout(){
+    stackH = stack.offsetHeight; extra = Math.round(window.innerHeight * 1.1);
+    stack.style.top = (window.innerHeight - stackH) + 'px';
+    scene.style.height = (stackH + extra) + 'px';
+    measure(); update();
+  }
   window.addEventListener('scroll', onScroll, { passive:true });
   window.addEventListener('resize', relayout);
   window.addEventListener('load', relayout);
@@ -973,6 +982,46 @@ body.life-active .hero-bg { display:none; }
       src.start(t);
     }catch(e){}
   }
+  // paper crumple — dense crackles that thin out, over a soft rustle, played when the footer heart unfolds
+  let lastCrumple = -9;
+  function crumple(){
+    try{
+      const c = ac(), t = c.currentTime;
+      if (c.state !== 'running' || t - lastCrumple < 3) return;
+      lastCrumple = t;
+      const dur = 1.3, out = c.createGain();
+      out.gain.value = 0.9; out.connect(c.destination);
+      // rustle bed: band-passed noise with a swelling-then-fading envelope
+      const bn = Math.floor(c.sampleRate * dur);
+      const bb = c.createBuffer(1, bn, c.sampleRate), bd = bb.getChannelData(0);
+      for (let i = 0; i < bn; i++) bd[i] = Math.random()*2 - 1;
+      const bs = c.createBufferSource(); bs.buffer = bb;
+      const bf = c.createBiquadFilter(); bf.type = 'bandpass'; bf.frequency.value = 3200; bf.Q.value = 0.6;
+      const bg = c.createGain();
+      bg.gain.setValueAtTime(0.0001, t);
+      bg.gain.exponentialRampToValueAtTime(0.05, t + 0.15);
+      bg.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      bs.connect(bf).connect(bg).connect(out);
+      bs.start(t);
+      // crackles: random short ticks, dense early then sparse
+      const count = 46;
+      for (let k = 0; k < count; k++){
+        const at = t + dur * Math.pow(Math.random(), 1.8) * 0.95;
+        const len = 0.006 + Math.random() * 0.016;
+        const n = Math.floor(c.sampleRate * len);
+        const buf = c.createBuffer(1, n, c.sampleRate), d = buf.getChannelData(0);
+        for (let i = 0; i < n; i++) d[i] = (Math.random()*2 - 1) * Math.pow(1 - i/n, 2.4);
+        const src = c.createBufferSource(); src.buffer = buf;
+        const f = c.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = 1800 + Math.random() * 5200; f.Q.value = 0.8 + Math.random() * 1.2;
+        const g = c.createGain(); g.gain.value = (0.12 + Math.random() * 0.3) * (1 - 0.6 * (at - t) / dur);
+        src.connect(f).connect(g).connect(out);
+        src.start(at);
+      }
+    }catch(e){}
+  }
+  document.addEventListener('paper-open', crumple);
+  // browsers only allow sound after a real gesture (scrolling alone doesn't count), so unlock audio on the first one
+  ['pointerdown','keydown','touchstart'].forEach((ev) => document.addEventListener(ev, () => { try{ ac(); }catch(e){} }, { once:true, passive:true, capture:true }));
   document.addEventListener('pointerdown', click, true);
   const form = document.getElementById('contactForm');
   if (form){
