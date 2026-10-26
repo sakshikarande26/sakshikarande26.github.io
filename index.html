@@ -42,7 +42,6 @@ html[data-palette="ink"]     { --green: #121212; --green-2: #1c1c1c; --green-3: 
   --step-head: clamp(4rem, 1.6rem + 9vw, 11rem);
 
   --m: clamp(18px, 2.4vw, 32px);
-  --photo-gap: clamp(56px, 7vw, 112px);
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
@@ -121,7 +120,6 @@ section { padding: clamp(96px, 10vw, 150px) var(--m); }
 .r .h2 { text-align: right; }
 
 /* about: two columns, highlighted words */
-.about { padding-top: var(--photo-gap); }
 .about-text {
   columns: 2; column-gap: 40px;
   font-size: clamp(1.375rem, 1rem + 1.1vw, 2rem); line-height: 1.22; letter-spacing: -0.005em;
@@ -208,8 +206,8 @@ section { padding: clamp(96px, 10vw, 150px) var(--m); }
 .degree .courses { list-style: none; color: var(--gold-soft); }
 
 /* photographs: wide, rounded, caption underneath */
-/* same gap above the photo (after the hero's 28px bottom padding) and below its caption */
-.photo { padding: calc(var(--photo-gap) - 28px) 0 0; }
+/* photo is now the first section after the hero, so it takes the hero gap about used to have; full-bleed, so no side padding */
+.photo { padding: clamp(96px, 12vw, 160px) 0 clamp(96px, 10vw, 150px); }
 .photo figure { margin: 0; }
 .photo img { width: 100%; height: auto; aspect-ratio: 2 / 1; max-height: 86svh; object-fit: cover; }
 .digicam { position: relative; overflow: hidden; }
