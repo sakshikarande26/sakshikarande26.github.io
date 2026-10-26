@@ -85,6 +85,7 @@ a { color: inherit; }
 .hero-foot p { font-size: var(--step-lead); line-height: 1.3; max-width: 30ch; }
 .hero-foot .tagline { max-width: none; }
 .tagline span { display: block; }
+.tagline span:last-child { font-size: 0.8em; color: var(--gold-soft); }
 .actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
 .btn {
   display: inline-flex; align-items: center; gap: 10px;
@@ -350,6 +351,21 @@ section { padding: clamp(96px, 10vw, 150px) var(--m); }
   .git { font-size: 17vw; }
   .contact-grid, .form, .contact-top, .degree { grid-template-columns: 1fr; }
 }
+
+/* SKILLS (commented out): marquee rows that glide slowly, alternating direction
+.irows { display: flex; flex-direction: column; gap: clamp(28px, 3.5vw, 44px); }
+.irow .cw-label { margin-bottom: 14px; }
+.imask { overflow: hidden; margin-inline: calc(var(--m) * -1); }
+.istrip { display: flex; width: max-content; will-change: transform; }
+.iset { display: flex; gap: 26px; padding-right: 26px; flex: none; padding-left: var(--m); }
+.istrip .iset + .iset { padding-left: 0; }
+.ichip { display: inline-flex; align-items: center; gap: 26px; font-weight: 500; font-size: clamp(1.0625rem, 0.95rem + 0.4vw, 1.375rem); white-space: nowrap; }
+.ichip::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--rose); flex: none; }
+@media (prefers-reduced-motion: reduce) {
+  .imask { margin-inline: 0; } .istrip { width: auto; transform: none !important; }
+  .iset { flex-wrap: wrap; gap: 14px 36px; padding: 0; } .iset[aria-hidden] { display: none; }
+}
+*/
 </style>
 <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -360,13 +376,14 @@ section { padding: clamp(96px, 10vw, 150px) var(--m); }
     <nav aria-label="Primary">
       <a class="u" href="#experience">Experience</a>
       <a class="u" href="#projects">Projects</a>
+      <!-- <a class="u" href="#skills">Skills</a> -->
       <a class="u" href="#publications">Publications</a>
       <a class="u" href="#contact">Contact</a>
     </nav>
   </div>
   <h1 class="name" aria-label="Sakshi Karande"><span class="line"><span>Sakshi</span></span><span class="line"><span>Karande</span></span></h1>
   <div class="hero-foot">
-    <p class="tagline"><span>Software engineer</span><span>building full stack apps and AI systems</span><span>CS grad student at UMass Amherst</span></p>
+    <p class="tagline"><span>Software engineer</span><span>building full stack apps and AI systems</span><span>CS grad student at UMass Amherst</span><span>Open to co-ops now, full-time from June 2027</span></p>
     <div class="actions">
       <a class="arrow-link u" href="https://drive.google.com/file/d/1Vbm41CniA_CpzPfvCNPNqMp_JfuQnl-s/view?usp=sharing" target="_blank" rel="noopener">Resume <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
       <a class="btn" href="#contact">Get in touch <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -391,7 +408,7 @@ section { padding: clamp(96px, 10vw, 150px) var(--m); }
     <p style="--i:1">I’ve always been curious about what happens behind the products we use every day, how tech moves fast and turns ideas into things people actually rely on. I like <span style="--d:1" class="hl rose">pulling things apart</span> to see how they work, and then trying to build a better version myself. That’s what pulled me toward <span style="--d:1" class="hl sage">research</span>, and eventually toward building my own <span style="--d:2" class="hl">side projects</span>.</p>
     <p style="--i:2">These days I’m working on <span style="--d:2" class="hl sage">full stack apps and AI systems</span>, with a growing focus on <span style="--d:3" class="hl">identity and access management</span>, making sure AI agents can be trusted with real access.</p>
     <p style="--i:3">Away from the keyboard, you’ll find me deep in a cryptic, conspiratorial <span style="--d:4" class="hl rose">Dan Brown novel</span>, journaling now and then, and over-decorating everything I make.</p>
-    <p style="--i:4">I’m looking for <a style="--d:5" class="hl" href="#contact">full-time software engineering roles</a> where I can put my whimsical skills to use building impactful things.</p>
+    <p style="--i:4">I’m looking for a part-time co-op this winter and spring, and <a style="--d:5" class="hl" href="#contact">full-time software engineering roles</a> starting June 2027, where I can put my whimsical skills to use building impactful things.</p>
   </div>
 </section>
 
@@ -450,10 +467,12 @@ section { padding: clamp(96px, 10vw, 150px) var(--m); }
         <div class="coursework">
           <p class="cw-label">Coursework</p>
           <ul class="courses">
-            <li>Machine Learning</li>
+            <li>AI Alignment</li>
+            <li>Trustworthy &amp; Responsible AI</li>
             <li>Advanced NLP</li>
-            <li>Theory and Practice of Software Engineering</li>
             <li>Optimization in Computer Science</li>
+            <li>Theory and Practice of Software Engineering</li>
+            <li>Machine Learning</li>
             <li>Data Science Fundamentals</li>
           </ul>
         </div>
@@ -483,19 +502,82 @@ section { padding: clamp(96px, 10vw, 150px) var(--m); }
 <section class="r" id="projects" aria-labelledby="proj-h">
   <h2 class="h2" id="proj-h">Projects</h2>
   <ul class="ledger">
-    <li><span class="pn">Agent Access Gateway</span><span class="pd">Checks identity, policy and credentials on every AI agent tool call, with a full audit trail.</span><span class="go"></span></li>
-    <li><a class="pn cover" href="https://github.com/sakshikarande26/openseat" target="_blank" rel="noopener">OpenSeat</a><span class="pd">Live map of open study spaces at UMass Amherst, so you stop wandering the library.</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span></li>
+    <li><span class="pn">Agent Access Gateway</span><span class="pd">Checks identity, policy and credentials on every AI agent tool call, with a full audit trail. In progress.</span><span class="go"></span></li>
+    <li><a class="pn cover" href="https://github.com/sakshikarande26/openseat" target="_blank" rel="noopener">OpenSeat</a><span class="pd">Live map of open study spaces at UMass Amherst, so you stop wandering the library. React, TypeScript, Supabase with row-level security and realtime.</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span></li>
     <li><a class="pn cover" href="https://github.com/sakshikarande26/unfiltered-journal" target="_blank" rel="noopener">Unfiltered Journal</a><span class="pd">Once-a-week journal: five photos, a few honest words, private goals. No edits, no deletes.</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span></li>
     <li><a class="pn cover" href="https://github.com/sakshikarande26/shortlist-warble-monitor" target="_blank" rel="noopener">Warble Monitor</a><span class="pd">Watches creator posts and pings brands only when growth is a real breakout, not noise.</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span></li>
     <li><a class="pn cover" href="https://github.com/sakshikarande26/coherence-feedback-system" target="_blank" rel="noopener">Coherence Feedback System</a><span class="pd">Feedback web app built with React and Vite.</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span></li>
-    <li><a class="pn cover" href="https://github.com/sakshikarande26/submodular-optimisation-for-diversity-aware-retrieval" target="_blank" rel="noopener">Diversity-Aware Re-Ranking</a><span class="pd">Cuts repetitive search results with submodular maximization, tested on 8.8M MS MARCO passages.</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span></li>
-    <li><a class="pn cover" href="https://github.com/sakshikarande26/agentic-web-entity-extractor" target="_blank" rel="noopener">Agentic Web Entity Extractor</a><span class="pd">Turns web searches into structured tables, with a cited source for every fact.</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span></li>
+    <li><a class="pn cover" href="https://github.com/sakshikarande26/submodular-optimisation-for-diversity-aware-retrieval" target="_blank" rel="noopener">Diversity-Aware Re-Ranking</a><span class="pd">Cuts repetitive search results with submodular maximization, tested on 8.8M MS MARCO passages. Lazy Greedy cut function evaluations by 74.4%, and a hybrid with Qwen2.5-7B via vLLM scored BERTScore F1 0.850 against 0.810 extractive-only.</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span></li>
+    <li><a class="pn cover" href="https://github.com/sakshikarande26/agentic-web-entity-extractor" target="_blank" rel="noopener">Agentic Web Entity Extractor</a><span class="pd">Turns web searches into structured tables, with a cited source for every fact. FastAPI and Gemini 2.5 Flash; relevance filtering, citation validation and fuzzy dedup took one query from 185 noisy entities to 32.</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span></li>
     <li><span class="pn">YesReply (HackUMass)</span><span class="pd">Paywalled inbox with AI thread summaries and automatic meeting scheduling.</span><span class="go"></span></li>
     <li><a class="pn cover" href="https://github.com/sakshikarande26/Multi-Stage-Cyberbullying-Detection-with-Emotions-Sarcasm" target="_blank" rel="noopener">Cyberbullying Detection</a><span class="pd">Spots cyberbullying in stages by reading emotion and sarcasm cues.</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span></li>
     <li><a class="pn cover" href="https://github.com/sakshikarande26/bond-market-optimisation-using-reinforcement-learning" target="_blank" rel="noopener">Bond Market RL Agent</a><span class="pd">Deep Q-network agent that learns to make bond trading decisions.</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span></li>
     <li><a class="pn cover" href="https://github.com/sakshikarande26/Multi-head-attention-based-commodity-trend-line-prognostication-" target="_blank" rel="noopener">Gold Price Transformer</a><span class="pd">Forecasts sovereign gold bond prices with a multi-head attention transformer.</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span></li>
   </ul>
 </section>
+
+<!-- SKILLS (commented out). Remove the comment markers to bring it back, plus the CSS block marked SKILLS and the nav link.
+<section id="skills" aria-labelledby="skills-h">
+  <h2 class="h2" id="skills-h">Skills</h2>
+  <div class="irows">
+    <div class="irow" data-dir="1">
+      <p class="cw-label">Languages</p>
+      <div class="imask"><div class="istrip"><div class="iset"><span class="ichip">Python</span><span class="ichip">TypeScript</span><span class="ichip">JavaScript</span><span class="ichip">Java</span><span class="ichip">SQL</span></div></div></div>
+    </div>
+    <div class="irow" data-dir="-1">
+      <p class="cw-label">Frontend</p>
+      <div class="imask"><div class="istrip"><div class="iset"><span class="ichip">React</span><span class="ichip">HTML &amp; CSS</span><span class="ichip">Tailwind CSS</span></div></div></div>
+    </div>
+    <div class="irow" data-dir="1">
+      <p class="cw-label">Backend</p>
+      <div class="imask"><div class="istrip"><div class="iset"><span class="ichip">FastAPI</span><span class="ichip">REST APIs</span><span class="ichip">PostgreSQL</span></div></div></div>
+    </div>
+    <div class="irow" data-dir="-1">
+      <p class="cw-label">Cloud &amp; AI</p>
+      <div class="imask"><div class="istrip"><div class="iset"><span class="ichip">AWS</span><span class="ichip">Git</span><span class="ichip">LangGraph</span><span class="ichip">RAG</span><span class="ichip">PyTorch</span><span class="ichip">Hugging Face</span><span class="ichip">vLLM</span></div></div></div>
+    </div>
+    <div class="irow" data-dir="1">
+      <p class="cw-label">Data</p>
+      <div class="imask"><div class="istrip"><div class="iset"><span class="ichip">Pandas</span><span class="ichip">NumPy</span><span class="ichip">Tableau</span></div></div></div>
+    </div>
+  </div>
+</section>
+<script>
+(function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.irow'));
+  if (!rows.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var SPEED = 24, last = performance.now();
+  var tracks = rows.map(function (row, i) {
+    var strip = row.querySelector('.istrip'), set = strip.querySelector('.iset');
+    return { strip: strip, set: set, dir: i % 2 ? 1 : -1, x: 0, w: 0 };
+  });
+  function fill() {
+    tracks.forEach(function (t) {
+      Array.prototype.slice.call(t.strip.querySelectorAll('.iset[aria-hidden]')).forEach(function (c) { c.remove(); });
+      t.w = t.set.getBoundingClientRect().width;
+      var need = Math.ceil((window.innerWidth * 2) / Math.max(t.w, 1));
+      for (var k = 0; k < need; k++) { var c = t.set.cloneNode(true); c.setAttribute('aria-hidden', 'true'); t.strip.appendChild(c); }
+      t.x = t.dir > 0 ? -t.w : 0;
+    });
+  }
+  function frame(now) {
+    var dt = Math.min((now - last) / 1000, 0.05); last = now;
+    tracks.forEach(function (t) {
+      if (!t.w) return;
+      t.x += t.dir * SPEED * dt;
+      if (t.x <= -t.w) t.x += t.w;
+      if (t.x > 0) t.x -= t.w;
+      t.strip.style.transform = 'translate3d(' + t.x.toFixed(2) + 'px,0,0)';
+    });
+    requestAnimationFrame(frame);
+  }
+  var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(fill, 150); });
+  window.addEventListener('load', fill);
+  fill();
+  requestAnimationFrame(frame);
+})();
+</script>
+-->
 
 <section id="publications" aria-labelledby="pub-h">
   <h2 class="h2" id="pub-h">Publications</h2>
@@ -531,7 +613,7 @@ section { padding: clamp(96px, 10vw, 150px) var(--m); }
   <div class="contact-top" data-reveal>
     <h2 class="git" id="contact-h" style="--i:0">Get in touch</h2>
     <div class="contact-intro" style="--i:1">
-      <p class="lead">Working on something cool? Let’s talk. Or just say hi, that works too.</p>
+      <p class="lead">Working on something cool? Let’s talk. Or just say hi, that works too. Reach out to me at:</p>
       <ul class="emails">
         <li><a href="mailto:sakshikarandee@gmail.com">sakshikarandee@gmail.com</a></li>
         <li><a href="mailto:skarande@umass.edu">skarande@umass.edu</a></li>
