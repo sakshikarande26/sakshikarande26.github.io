@@ -207,11 +207,10 @@ section { padding: clamp(96px, 10vw, 150px) var(--m); }
 .degree .courses { list-style: none; color: var(--gold-soft); }
 
 /* photographs: wide, rounded, caption underneath */
-.photo { padding: clamp(24px, 4vw, 56px) 10px; }
+.photo { padding: 0 0 clamp(24px, 4vw, 56px); }
 .photo figure { margin: 0; }
-.photo img { width: 100%; height: auto; aspect-ratio: 2 / 1; max-height: 86svh; object-fit: cover; border-radius: 10px; }
-.digicam { position: relative; overflow: hidden; border-radius: 10px; }
-.photo .digicam img { border-radius: 0; }
+.photo img { width: 100%; height: auto; aspect-ratio: 2 / 1; max-height: 86svh; object-fit: cover; }
+.digicam { position: relative; overflow: hidden; }
 /* digicam look: warm, punchy colour, soft vignette, film grain and an orange date stamp */
 .digicam img { filter: contrast(1.08) saturate(1.18) sepia(0.12) brightness(1.02); }
 .digicam::before, .digicam::after { content: ''; position: absolute; inset: 0; pointer-events: none; }
@@ -225,7 +224,7 @@ section { padding: clamp(96px, 10vw, 150px) var(--m); }
   font: 600 clamp(0.9rem, 0.6rem + 1vw, 1.5rem)/1 'Courier New', ui-monospace, monospace; letter-spacing: 0.08em;
   color: #ff9a3c; text-shadow: 0 0 6px rgba(255, 120, 30, 0.75), 0 0 1px #ff6a00;
 }
-.photo figcaption { margin-top: 16px; font-size: var(--step-body); color: var(--gold-soft); text-align: left; }
+.photo figcaption { margin-top: 16px; padding: 0 var(--m); font-size: var(--step-body); color: var(--gold-soft); text-align: left; }
 .photo figcaption b { color: var(--gold); font-weight: 600; margin-right: 6px; }
 
 /* projects: a quiet ledger */
@@ -339,8 +338,6 @@ section { padding: clamp(96px, 10vw, 150px) var(--m); }
   .h2 { font-size: 17vw; }
   .pub { grid-template-columns: 1fr; gap: 12px; }
   .poster ul { columns: 1; padding-top: 4px; }
-  .photo img, .photo .digicam { border-radius: 8px; }
-  .photo .digicam img { border-radius: 0; }
   .ledger li { grid-template-columns: 1fr 20px; gap: 4px 12px; }
   .ledger .pd { grid-column: 1; font-size: 0.9375rem; }
   .ledger .go { grid-column: 2; grid-row: 1; }
@@ -372,6 +369,16 @@ section { padding: clamp(96px, 10vw, 150px) var(--m); }
   </div>
 </header>
 
+<section class="photo" aria-label="New York, at sunset.">
+  <figure data-reveal>
+    <div class="digicam" style="--i:0">
+      <img src="assets/rooftop.webp" alt="Sakshi smiling on a rooftop, the New York skyline behind her at sunset" width="1920" height="1080" style="object-position: 50% 72%;">
+      <span class="stamp" aria-hidden="true">'24 08 17</span>
+    </div>
+    <figcaption style="--i:1">New York City · Golden hour</figcaption>
+  </figure>
+</section>
+
 <section class="about" id="about" aria-labelledby="about-h">
   <h2 class="h2" id="about-h"><span class="greeting">Hello!</span></h2>
   <div class="about-text" data-reveal>
@@ -381,16 +388,6 @@ section { padding: clamp(96px, 10vw, 150px) var(--m); }
     <p style="--i:3">Away from the keyboard, you’ll find me deep in a cryptic, conspiratorial <span style="--d:4" class="hl rose">Dan Brown novel</span>, journaling now and then, and over-decorating everything I make.</p>
     <p style="--i:4">I’m looking for <a style="--d:5" class="hl" href="#contact">full-time software engineering roles</a> where I can put my whimsical skills to use building impactful things.</p>
   </div>
-</section>
-
-<section class="photo" aria-label="New York, at sunset.">
-  <figure data-reveal>
-    <div class="digicam" style="--i:0">
-      <img src="assets/rooftop.webp" alt="Sakshi smiling on a rooftop, the New York skyline behind her at sunset" width="1920" height="1080" loading="lazy" style="object-position: 50% 72%;">
-      <span class="stamp" aria-hidden="true">'24 08 17</span>
-    </div>
-    <figcaption style="--i:1"><b>New York, golden hour.</b>The skyline did all the work. I just stood there.</figcaption>
-  </figure>
 </section>
 
 <section class="r" id="experience" aria-labelledby="xp-h">
