@@ -614,7 +614,7 @@ section { padding: clamp(96px, 10vw, 150px) var(--m); }
     const v = n => f.elements[n].value.trim();
     const first = v('first');
     btn.disabled = true; btn.textContent = 'Sending…';
-    fetch('https://script.google.com/macros/s/AKfycbzLAxeT_DZhDF16FKXBD5Ft7arqioRjsv4aaZBcvLGq0Cdqr-s3F7rKvOz556npsuB3/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbwyP1ZD4iMslgy2SGO-Ga85qn7u_oyxc3jYEasapyAh5UaKxBUWMPbhIguEe_7OepNv/exec', {
       method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: `${first} ${v('last')}`.trim(), firstName: first, lastName: v('last'), email: v('email'), subject: v('subject'), message: v('message') })
     }).then(() => { f.reset(); thank(first); })
