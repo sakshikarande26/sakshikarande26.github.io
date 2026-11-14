@@ -418,19 +418,19 @@ section { padding: clamp(96px, 10vw, 150px) var(--m); }
     <details name="xp" class="poster" open>
       <summary><span class="word">UMass Amherst</span><span class="fact"><b>Graduate Research Assistant</b><span>Sept 2025 – Present · Amherst, MA</span></span></summary>
       <ul>
-        <li>Building LLM-based clinical calculator selection system using prompt engineering and retrieval methods</li>
-        <li>Expanded MedCalc-Bench to 700+ calculators by merging web sources and standardizing clinical metadata</li>
-        <li>Designed exclusion-matrix benchmarking methodology across 15+ clinical categories</li>
-        <li>Benchmarked GPT-5-mini vs GPT-4o, Mistral, and Qwen models, achieving 90% accuracy with 15% improvement</li>
+        <li>Built a system that reads a doctor's plain-English patient note and picks the right clinical calculator out of 700+</li>
+        <li>Expanded MedCalc-Bench to 700+ calculators across 15+ clinical categories by scraping sources and standardizing their metadata</li>
+        <li>Used embedding search (OpenAI embeddings, FAISS) to narrow 700+ calculators to a short list for the model to choose from</li>
+        <li>Built an eval harness that scores retrieval, selection and the final answer separately for each category, so you can see where a failure happened, across GPT-4o-mini, Mistral and Qwen</li>
       </ul>
     </details>
     <details name="xp" class="poster">
       <summary><span class="word">Axia</span><span class="fact"><b>Software Engineering Intern</b><span>Aug 2024 – May 2025 · Mumbai, IN</span></span></summary>
       <ul>
-        <li>Built multi-agent AI system using LangGraph for automated content generation and evaluation workflows</li>
-        <li>Improved LLM pipeline quality by 45% through prompt optimization and model fine-tuning</li>
-        <li>Integrated generative AI pipeline into production website via FastAPI, reducing response latency by 20%</li>
-        <li>Collaborated with cross-functional teams to deploy data-driven features across release cycles</li>
+        <li>Built a three-agent LangGraph system (generator, evaluator, reviser) that writes sales content, grades it and fixes it before a person sees it, running in production</li>
+        <li>Had a different model judge the drafts (Gemini judging Grok's drafts), so the judge doesn't share the writer's blind spots</li>
+        <li>Cut content turnaround from 4–6 hours to 2–3 hours</li>
+        <li>Raised output quality 45% with prompt tuning, retrieval tuning and fine-tuning, and cut latency 20% with async FastAPI services</li>
       </ul>
     </details>
     <details name="xp" class="poster">
@@ -502,6 +502,7 @@ section { padding: clamp(96px, 10vw, 150px) var(--m); }
 <section class="r" id="projects" aria-labelledby="proj-h">
   <h2 class="h2" id="proj-h">Projects</h2>
   <ul class="ledger">
+    <li><a class="pn cover" href="https://github.com/sakshikarande26/coding-agents-goal-drift" target="_blank" rel="noopener">Goal Drift in Coding Agents</a><span class="pd">Building evaluations that catch coding agents misbehaving, like escaping the sandbox or gaming the tests, and testing two ways to train it out of them.</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span></li>
     <li><span class="pn">Agent Access Gateway</span><span class="pd">Checks identity, policy and credentials on every AI agent tool call, with a full audit trail. In progress.</span><span class="go"></span></li>
     <li><a class="pn cover" href="https://github.com/sakshikarande26/openseat" target="_blank" rel="noopener">OpenSeat</a><span class="pd">Live map of open study spaces at UMass Amherst, so you stop wandering the library. React, TypeScript, Supabase with row-level security and realtime.</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span></li>
     <li><a class="pn cover" href="https://github.com/sakshikarande26/unfiltered-journal" target="_blank" rel="noopener">Unfiltered Journal</a><span class="pd">Once-a-week journal: five photos, a few honest words, private goals. No edits, no deletes.</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span></li>
